@@ -1,36 +1,61 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ATS-Friendly Resume Builder (Student Focused)
 
-## Getting Started
+A production-grade web application for college students to create ATS-optimized resumes. Built with Next.js, Puppeteer, and Zod.
 
-First, run the development server:
+## 🚀 Quick Start
 
+### 1. Prerequisites
+- **Node.js**: Version 18.x or higher
+- **npm**: Version 9.x or higher
+
+### 2. Installation
+Clone the repository (or extract the files) and run:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 3. Run Development Server
+Start the local development server:
+```bash
+npm run dev
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🛠️ How to Use
 
-## Learn More
+1. **Build Your Resume**: Click on "Build My Resume" and fill in the multi-step form.
+2. **Dynamic Sections**: You can add entries for Education, Experience, and Projects. Separation of bullet points is handled via new lines.
+3. **Preview**: Once finished, you'll be redirected to the preview page to verify your details.
+4. **Download PDF**: Click the "Download PDF" button. The server will generate a high-quality, ATS-compliant PDF for you.
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🏗️ Production Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+To create an optimized production build:
+```bash
+npm run build
+npm run start
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 📝 Important Notes for PDF Generation
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Local Development vs Production
+This project uses `@sparticuz/chromium` and `puppeteer-core` for PDF generation, which is optimized for **Vercel Serverless Functions**.
+
+- **In Production (Vercel)**: PDF generation will work automatically.
+- **In Local Development (Windows/Mac)**: You may need to have Google Chrome or Microsoft Edge installed. The `api/export` route is configured for serverless environments. If you encounter issues generating PDFs locally, ensures that the executable path in `src/app/api/export/route.ts` points to your local Chrome installation.
+
+---
+
+## 📂 Project Structure
+
+- `src/app`: Next.js App Router pages and API routes.
+- `src/components`: UI components and form logic.
+- `src/lib`: Zod schemas, state management, and resume templates.
+- `src/lib/schemas/resume.ts`: The "Source of Truth" JSON schema.
+- `src/lib/templates/ats-resume.tsx`: The ATS-optimized HTML layout.
