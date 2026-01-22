@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 import "./globals.css";
 import { ResumeProvider } from "@/lib/context/ResumeContext";
+import { ErrorBoundary } from "@/components/ui/ErrorBoundary";
 
 const outfit = Outfit({ subsets: ["latin"] });
 
@@ -18,9 +19,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={outfit.className}>
-        <ResumeProvider>
-          {children}
-        </ResumeProvider>
+        <ErrorBoundary>
+          <ResumeProvider>
+            {children}
+          </ResumeProvider>
+        </ErrorBoundary>
       </body>
     </html>
   );

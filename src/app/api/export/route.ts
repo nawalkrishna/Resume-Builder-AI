@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import chromium from "@sparticuz/chromium";
 import puppeteer from "puppeteer-core";
 import { ResumeData } from "@/lib/schemas/resume";
+import { createClient } from "@/lib/supabase/server";
 import fs from "fs";
 
 // Function to find a valid browser executable on the system
@@ -29,9 +30,17 @@ function findBrowserExecutable(): string | null {
 
 export async function POST(req: NextRequest) {
   try {
+    // Check authentication
+    const supabase = await createClient();
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+
     const data: ResumeData = await req.json();
 
     let executablePath: string;
+
 
     // Detect if environment is production (Vercel/Serverless) or local
     const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;

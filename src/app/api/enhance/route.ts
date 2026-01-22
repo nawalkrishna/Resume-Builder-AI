@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import { createClient } from "@/lib/supabase/server";
 
 interface EnhanceRequest {
     type: "experience" | "project" | "achievement";
@@ -22,6 +23,14 @@ export async function POST(req: NextRequest) {
                 { status: 500 }
             );
         }
+
+        // Check authentication
+        const supabase = await createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
 
         const openai = new OpenAI({
             apiKey: process.env.OPENAI_API_KEY,

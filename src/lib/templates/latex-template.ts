@@ -56,7 +56,7 @@ ${data.projects.map(proj => `
 `).join("\n")}
 ` : ""}
 
-${data.skills.categories && data.skills.categories.length > 0 ? `
+${data.skills.categories && data.skills.categories.some(cat => cat.skills && cat.category) ? `
 \\section{Technical Skills}
 \\begin{itemize}[noitemsep,topsep=0pt,leftmargin=1.5em]
     ${data.skills.categories.filter(cat => cat.skills && cat.category).map(cat => `\\item \\textbf{${sanitize(cat.category || "")}:} ${sanitize(cat.skills || "")}`).join("\n    ")}

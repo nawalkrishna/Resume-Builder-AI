@@ -94,7 +94,7 @@ export const ATSResumeTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
             )}
 
             {/* Skills */}
-            {data.skills.categories && data.skills.categories.length > 0 && (
+            {data.skills.categories && data.skills.categories.some(cat => cat.skills && cat.category) && (
                 <section className="space-y-1">
                     <h2 className="text-[12pt] font-bold uppercase tracking-tight border-b-[1pt] border-black">Technical Skills</h2>
                     <div className="space-y-0.5">
