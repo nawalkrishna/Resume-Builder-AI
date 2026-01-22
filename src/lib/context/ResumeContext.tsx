@@ -45,6 +45,7 @@ const initialData: ResumeData = {
 
     achievements: [],
     certifications: [],
+    template: "simple",
 };
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);
@@ -89,9 +90,9 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         loadEditFromStorage();
     }, [loadEditFromStorage]);
 
-    const updateData = (newData: Partial<ResumeData>) => {
+    const updateData = useCallback((newData: Partial<ResumeData>) => {
         setData((prev) => ({ ...prev, ...newData }));
-    };
+    }, []);
 
     const resetData = () => {
         setData(initialData);

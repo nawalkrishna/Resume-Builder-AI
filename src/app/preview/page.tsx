@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
-import { ATSResumeTemplate } from "@/lib/templates/ats-resume";
+import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { useResume } from "@/lib/context/ResumeContext";
 import { generateLaTeX } from "@/lib/templates/latex-template";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { getTemplate } from "@/lib/templates/registry";
 
 export default function PreviewPage() {
     const { data, saveResume, resumeName, setResumeName, resumeId } = useResume();
@@ -18,6 +18,9 @@ export default function PreviewPage() {
     const [tempName, setTempName] = useState(resumeName);
     const [copyStatus, setCopyStatus] = useState<string | null>(null);
     const [saveSuccess, setSaveSuccess] = useState(false);
+    const resumeRef = useRef<HTMLDivElement>(null);
+
+    const TemplateComponent = getTemplate(data.template || "simple");
 
     const handleDownload = async () => {
         setIsExporting(true);
@@ -38,7 +41,7 @@ export default function PreviewPage() {
                 a.click();
                 a.remove();
 
-                // Log download to history (only if user has saved the resume)
+                // Log download to history
                 if (resumeId) {
                     await fetch("/api/downloads", {
                         method: "POST",
@@ -48,7 +51,7 @@ export default function PreviewPage() {
                 }
             } else {
                 const errorData = await response.json();
-                alert(`Failed to generate PDF locally: ${errorData.error}. Make sure you have Chrome installed or deploy to Vercel.`);
+                alert(`PDF generation failed: ${errorData.error}`);
             }
         } catch (error) {
             console.error("Export error:", error);
@@ -57,6 +60,8 @@ export default function PreviewPage() {
             setIsExporting(false);
         }
     };
+
+
 
 
     const handleSave = async () => {
@@ -266,8 +271,12 @@ export default function PreviewPage() {
                         transition={{ delay: 0.3 }}
                         className="lg:col-span-9 flex justify-center"
                     >
-                        <div className="bg-white shadow-[0_30px_100px_-20px_rgba(0,0,0,0.1)] rounded-sm overflow-hidden transform transition-all hover:scale-[1.005]">
-                            <ATSResumeTemplate data={data} />
+                        <div
+                            ref={resumeRef}
+                            id="resume-container"
+                            className="bg-white shadow-[0_30px_100px_-20px_rgba(0,0,0,0.1)] rounded-sm overflow-hidden"
+                        >
+                            <TemplateComponent data={data} />
                         </div>
                     </motion.div>
                 </div>

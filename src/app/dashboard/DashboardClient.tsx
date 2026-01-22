@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
@@ -32,8 +32,23 @@ interface DashboardClientProps {
 export default function DashboardClient({ user, resumes: initialResumes, downloads }: DashboardClientProps) {
     const [resumes, setResumes] = useState(initialResumes);
     const [deletingId, setDeletingId] = useState<string | null>(null);
+    const [isAdmin, setIsAdmin] = useState(false);
     const router = useRouter();
     const supabase = createClient();
+
+    // Check if user is admin
+    useEffect(() => {
+        const checkAdminStatus = async () => {
+            const { data } = await supabase
+                .from("admin_users")
+                .select("role")
+                .eq("user_id", user.id)
+                .single();
+
+            setIsAdmin(!!data);
+        };
+        checkAdminStatus();
+    }, [supabase, user.id]);
 
     const handleLogout = async () => {
         await supabase.auth.signOut();
@@ -86,6 +101,13 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                         Resume Builder
                     </Link>
                     <div className="flex items-center gap-4">
+                        {isAdmin && (
+                            <Link href="/admin">
+                                <Button variant="outline" size="sm" className="border-indigo-500 text-indigo-600 hover:bg-indigo-50">
+                                    🛡️ Admin Panel
+                                </Button>
+                            </Link>
+                        )}
                         <span className="text-sm text-slate-500">{user.email}</span>
                         <Button variant="outline" size="sm" onClick={handleLogout}>
                             Logout
@@ -105,7 +127,7 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                         <h1 className="text-3xl font-black text-slate-900 tracking-tight">Dashboard</h1>
                         <p className="text-slate-500 font-medium">Manage your resumes and track downloads</p>
                     </div>
-                    <Link href="/builder">
+                    <Link href="/templates">
                         <Button className="shadow-lg shadow-indigo-200">
                             + Create New Resume
                         </Button>
@@ -125,7 +147,7 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                             </div>
                             <h3 className="font-bold text-slate-900 mb-2">No resumes yet</h3>
                             <p className="text-slate-500 text-sm mb-4">Create your first resume to get started</p>
-                            <Link href="/builder">
+                            <Link href="/templates">
                                 <Button>Create Resume</Button>
                             </Link>
                         </div>
@@ -181,44 +203,6 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                                     </div>
                                 </motion.div>
                             ))}
-                        </div>
-                    )}
-                </section>
-
-                {/* Download History */}
-                <section className="space-y-4">
-                    <h2 className="text-lg font-bold text-slate-900">Recent Downloads</h2>
-
-                    {downloads.length === 0 ? (
-                        <p className="text-slate-500 text-sm">No downloads yet</p>
-                    ) : (
-                        <div className="glass-card overflow-hidden">
-                            <table className="w-full text-sm">
-                                <thead className="bg-slate-50 border-b border-slate-200">
-                                    <tr>
-                                        <th className="text-left px-4 py-3 font-semibold text-slate-600">Resume</th>
-                                        <th className="text-left px-4 py-3 font-semibold text-slate-600">Format</th>
-                                        <th className="text-left px-4 py-3 font-semibold text-slate-600">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {downloads.map((download) => (
-                                        <tr key={download.id} className="border-b border-slate-100 last:border-0">
-                                            <td className="px-4 py-3 text-slate-900">
-                                                {download.resumes?.name || "Deleted Resume"}
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span className="inline-block px-2 py-1 bg-slate-100 rounded text-xs font-semibold text-slate-600 uppercase">
-                                                    {download.format}
-                                                </span>
-                                            </td>
-                                            <td className="px-4 py-3 text-slate-500">
-                                                {formatDate(download.downloaded_at)}
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
                         </div>
                     )}
                 </section>

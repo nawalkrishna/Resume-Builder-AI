@@ -61,6 +61,7 @@ export const ResumeSchema = z.object({
   skills: SkillsSchema,
   achievements: z.array(AchievementSchema),
   certifications: z.array(CertificationSchema),
+  template: z.string().optional().default("simple"),
 });
 
 export type ResumeData = z.infer<typeof ResumeSchema>;

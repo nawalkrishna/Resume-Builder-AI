@@ -55,7 +55,8 @@ export const ExperienceForm: React.FC<ExperienceFormProps> = ({ onNext, onBack }
                 }))
             });
         }
-    }, [data.experience, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.experience]);
 
     const onSubmit = (formData: any) => {
 

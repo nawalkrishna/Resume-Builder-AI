@@ -1,6 +1,9 @@
 import React from "react";
 import { ResumeData } from "@/lib/schemas/resume";
 
+// Export as ATSTemplate for registry
+export { ATSResumeTemplate as ATSTemplate };
+
 export const ATSResumeTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
     return (
         <div className="bg-white text-black p-[0.75in] font-serif leading-tight w-full max-w-[8.5in] mx-auto min-h-[11in] shadow-sm flex flex-col gap-4 text-[11pt]">

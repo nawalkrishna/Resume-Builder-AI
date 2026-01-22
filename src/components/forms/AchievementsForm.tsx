@@ -50,7 +50,8 @@ export const AchievementsForm: React.FC<AchievementsFormProps> = ({ onNext, onBa
         if (data.achievements.length > 0) {
             reset({ achievements: data.achievements });
         }
-    }, [data.achievements, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.achievements]);
 
     const onSubmit = (formData: FormValues) => {
 

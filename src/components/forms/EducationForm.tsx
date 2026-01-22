@@ -42,7 +42,8 @@ export const EducationForm: React.FC<EducationFormProps> = ({ onNext, onBack }) 
         if (data.education.length > 0) {
             reset({ education: data.education });
         }
-    }, [data.education, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.education]);
 
     const onSubmit = (formData: any) => {
 

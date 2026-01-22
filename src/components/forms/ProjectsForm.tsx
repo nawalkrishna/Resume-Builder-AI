@@ -55,7 +55,8 @@ export const ProjectsForm: React.FC<ProjectsFormProps> = ({ onNext, onBack }) =>
                 }))
             });
         }
-    }, [data.projects, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.projects]);
 
     const onSubmit = (formData: any) => {
 

@@ -59,7 +59,8 @@ export const SkillsForm: React.FC<SkillsFormProps> = ({ onNext, onBack }) => {
         reset({
             categories: data.skills.categories || [],
         });
-    }, [data.skills, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.skills]);
 
     const onSubmit = (formData: any) => {
         // Filter out empty categories

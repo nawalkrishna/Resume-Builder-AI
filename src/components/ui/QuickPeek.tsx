@@ -2,13 +2,14 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ATSResumeTemplate } from "@/lib/templates/ats-resume";
 import { useResume } from "@/lib/context/ResumeContext";
+import { getTemplate } from "@/lib/templates/registry";
 import { Button } from "./Button";
 
 export const QuickPeek: React.FC = () => {
     const { data } = useResume();
     const [isOpen, setIsOpen] = useState(false);
+    const TemplateComponent = getTemplate(data.template || "simple");
 
     return (
         <>
@@ -67,7 +68,7 @@ export const QuickPeek: React.FC = () => {
                             {/* Modal Content - The Template */}
                             <div className="flex-1 overflow-y-auto p-4 sm:p-12 bg-neutral-200/50">
                                 <div className="transform scale-[0.85] origin-top sm:scale-100 shadow-2xl bg-white mb-8 mx-auto">
-                                    <ATSResumeTemplate data={data} />
+                                    <TemplateComponent data={data} />
                                 </div>
                             </div>
 

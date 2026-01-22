@@ -19,19 +19,33 @@ const STEPS = ["Header", "Education", "Experience", "Projects", "Skills", "Achie
 function BuilderContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
-    const { loadEditFromStorage } = useResume();
+    const { loadEditFromStorage, updateData } = useResume();
     const [currentStep, setCurrentStep] = useState(0);
     const [isImportMode, setIsImportMode] = useState(false);
 
     useEffect(() => {
-        if (searchParams.get("import") === "true") {
+        const importIntent = localStorage.getItem("importIntent") === "true" || searchParams.get("import") === "true";
+        
+        if (importIntent) {
             setIsImportMode(true);
+            localStorage.removeItem("importIntent"); // Clear after reading
         }
-        // If in edit mode, load the data from localStorage
+        
         if (searchParams.get("edit") === "true") {
+            // Edit mode: load existing resume (it already has template)
             loadEditFromStorage();
+        } else {
+            // New resume flow: MUST have selected template
+            const selectedTemplate = localStorage.getItem("selectedTemplate");
+            if (!selectedTemplate) {
+                router.push("/templates");
+                return;
+            }
+            // Only update template once when component mounts or template changes
+            updateData({ template: selectedTemplate });
         }
-    }, [searchParams, loadEditFromStorage]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchParams]);
 
 
     const handleNext = () => {

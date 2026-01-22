@@ -45,7 +45,8 @@ export const CertificationsForm: React.FC<CertificationsFormProps> = ({ onNext, 
         if (data.certifications.length > 0) {
             reset({ certifications: data.certifications });
         }
-    }, [data.certifications, reset]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data.certifications]);
 
     const onSubmit = (formData: FormValues) => {
 

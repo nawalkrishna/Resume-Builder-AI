@@ -91,6 +91,24 @@ Return ONLY the enhanced achievement, single line.`;
         });
 
         const response = completion.choices[0]?.message?.content || "";
+        const tokensUsed = completion.usage?.total_tokens || 0;
+
+        // Simple cost estimation for gpt-4o-mini ($0.150 / 1M input tokens, $0.600 / 1M output tokens)
+        const costUsd = (completion.usage?.prompt_tokens || 0) * 0.00000015 + (completion.usage?.completion_tokens || 0) * 0.0000006;
+
+        // Log usage to database
+        try {
+            await supabase.from("ai_usage").insert({
+                user_id: user.id,
+                type,
+                input_text: JSON.stringify(content),
+                output_text: response,
+                tokens_used: tokensUsed,
+                cost_usd: costUsd
+            });
+        } catch (dbError) {
+            console.error("Failed to log AI usage:", dbError);
+        }
 
         // Parse the response based on type
         let enhanced: string[];
