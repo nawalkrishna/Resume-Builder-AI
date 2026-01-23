@@ -8,6 +8,8 @@ import { ResumeData } from "@/lib/schemas/resume";
 import { getTemplate } from "@/lib/templates/registry";
 import Link from "next/link";
 
+import { useResume } from "@/lib/context/ResumeContext";
+
 const sampleJSON = {
     header: {
         name: "John Doe",
@@ -17,7 +19,8 @@ const sampleJSON = {
         linkedin: "https://linkedin.com/in/johndoe",
         github: "https://github.com/johndoe",
         portfolio: "",
-        leetcode: ""
+        leetcode: "",
+        customLinks: []
     },
     education: [
         {
@@ -53,8 +56,9 @@ const sampleJSON = {
     skills: {
         categories: [
             { category: "Languages", skills: "JavaScript, TypeScript, Python, Go" },
-            { category: "Frameworks", skills: "React, Next.js, Node.js, Express" },
-            { category: "Tools", skills: "Git, Docker, AWS, PostgreSQL" }
+            { category: "Frameworks / Libraries", skills: "React, Next.js, Node.js, Express" },
+            { category: "Tools / Platforms", skills: "Git, Docker, AWS, PostgreSQL" },
+            { category: "Relevant Concepts", skills: "Data Structures, Algorithms, System Design" }
         ]
     },
     achievements: [
@@ -70,6 +74,7 @@ const sampleJSON = {
 
 export default function ConvertPage() {
     const router = useRouter();
+    const { setFullData } = useResume();
     const [jsonInput, setJsonInput] = useState(JSON.stringify(sampleJSON, null, 2));
     const [resumeData, setResumeData] = useState<ResumeData>(sampleJSON as ResumeData);
     const [error, setError] = useState<string | null>(null);
@@ -91,9 +96,10 @@ export default function ConvertPage() {
     const TemplateComponent = getTemplate(resumeData.template || "simple");
 
     const handleImportToBuilder = () => {
+        setFullData(resumeData);
+        // Persist to localStorage as well for insurance
         localStorage.setItem("resumeData", JSON.stringify(resumeData));
-        localStorage.setItem("selectedTemplate", selectedTemplate);
-        router.push("/builder?edit=true");
+        router.push("/preview");
     };
 
     const handleCopyJSON = () => {
@@ -117,14 +123,18 @@ export default function ConvertPage() {
     };
 
     const templates = [
-        { id: "simple", name: "Simple" },
-        { id: "modern", name: "Modern" },
-        { id: "professional", name: "Professional" },
-        { id: "creative", name: "Creative" },
-        { id: "minimal", name: "Minimal" },
-        { id: "executive", name: "Executive" },
-        { id: "elegant", name: "Elegant" },
-        { id: "bold", name: "Bold" },
+        { id: "simple", name: "Modern ATS" },
+        { id: "classic", name: "Classic Serif" },
+        { id: "modern", name: "Modern Emerald" },
+        { id: "professional", name: "Professional Sidebar" },
+        { id: "minimal", name: "Minimalist" },
+        { id: "creative", name: "Creative Gradient" },
+        { id: "tech", name: "Terminal Tech" },
+        { id: "executive", name: "Executive Dark" },
+        { id: "academic", name: "Academic" },
+        { id: "compact", name: "Compact" },
+        { id: "elegant", name: "Elegant Violet" },
+        { id: "bold", name: "Bold Red" },
     ];
 
     return (
@@ -159,7 +169,7 @@ export default function ConvertPage() {
                             ⬇ Download JSON
                         </Button>
                         <Button onClick={handleImportToBuilder} className="bg-indigo-600">
-                            Import to Builder →
+                            Preview & Download →
                         </Button>
                     </div>
                 </div>
