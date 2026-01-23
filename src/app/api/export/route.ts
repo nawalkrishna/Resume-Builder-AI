@@ -1,10 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 import puppeteer from "puppeteer-core";
 import { ResumeData } from "@/lib/schemas/resume";
 import { createClient } from "@/lib/supabase/server";
 import fs from "fs";
 
+// Remote Chromium URL - official release from sparticuz
+const CHROMIUM_REMOTE_URL = "https://github.com/Sparticuz/chromium/releases/download/v131.0.1/chromium-v131.0.1-pack.tar";
 
 // Function to find a valid browser executable on the system
 function findBrowserExecutable(): string | null {
@@ -48,12 +50,9 @@ export async function POST(req: NextRequest) {
     const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
 
     if (isServerless) {
-      // NUCLEAR FIX: Bypass internal local resolution which throws errors before catch
-      // Jumping straight to verified remote stable tarball for @sparticuz/chromium 143 compat
-      console.log("Vercel detected. Bypassing local bin and using remote stable source...");
-      executablePath = await chromium.executablePath(
-        `https://github.com/sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar`
-      );
+      // chromium-min REQUIRES a remote URL - it has no local binaries
+      console.log("Vercel detected. Using chromium-min with remote source...");
+      executablePath = await chromium.executablePath(CHROMIUM_REMOTE_URL);
     } else if (process.platform === "win32") {
       const localBrowser = findBrowserExecutable();
       if (!localBrowser) {
