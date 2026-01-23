@@ -71,14 +71,21 @@ export async function POST(req: NextRequest) {
     console.log("Final ExecutablePath selected:", executablePath);
 
     const browser = await puppeteer.launch({
-      args: isServerless ? chromium.args : [
+      args: isServerless ? [
+        "--no-sandbox",
+        "--disable-setuid-sandbox",
+        "--disable-dev-shm-usage",
+        "--disable-gpu",
+        "--single-process",
+        "--no-zygote",
+      ] : [
         "--no-sandbox",
         "--disable-setuid-sandbox",
         "--disable-dev-shm-usage",
         "--disable-gpu",
       ],
       executablePath,
-      headless: isServerless ? (chromium.headless as any) : true,
+      headless: true,
     });
 
     const page = await browser.newPage();
