@@ -71,30 +71,30 @@ export default function AnnouncementsPage() {
     };
 
     const typeColors = {
-        info: "bg-blue-500/20 text-blue-400 border-blue-500/50",
-        warning: "bg-yellow-500/20 text-yellow-400 border-yellow-500/50",
-        success: "bg-green-500/20 text-green-400 border-green-500/50",
+        info: "bg-blue-50 text-blue-700 border-blue-200 shadow-blue-100",
+        warning: "bg-amber-50 text-amber-700 border-amber-200 shadow-amber-100",
+        success: "bg-emerald-50 text-emerald-700 border-emerald-200 shadow-emerald-100",
     };
 
     if (loading) {
         return (
             <div className="flex items-center justify-center h-64">
-                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-indigo-500"></div>
+                <div className="animate-spin rounded-full h-12 w-12 border-4 border-slate-100 border-t-indigo-600 shadow-xl"></div>
             </div>
         );
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
             {/* Header */}
             <div className="flex justify-between items-center">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">Announcements</h1>
-                    <p className="text-slate-400 mt-1">Broadcast messages to all users</p>
+                    <h1 className="text-4xl font-bold text-slate-900 tracking-tight">Announcements</h1>
+                    <p className="text-slate-500 font-medium mt-1">Broadcast messages to all users</p>
                 </div>
                 <button
                     onClick={() => setShowForm(!showForm)}
-                    className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors"
+                    className="px-6 py-2.5 bg-indigo-600 text-white rounded-xl hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 font-bold active:scale-95"
                 >
                     {showForm ? "Cancel" : "+ New Announcement"}
                 </button>
@@ -102,88 +102,103 @@ export default function AnnouncementsPage() {
 
             {/* Create Form */}
             {showForm && (
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6 space-y-4">
-                    <h2 className="text-lg font-semibold text-white">Create Announcement</h2>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Title</label>
-                        <input
-                            type="text"
-                            value={formData.title}
-                            onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-indigo-500"
-                            placeholder="Announcement title"
-                        />
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 space-y-6 shadow-xl shadow-slate-200/50">
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        📣 Create Announcement
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-4">
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Title</label>
+                                <input
+                                    type="text"
+                                    value={formData.title}
+                                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                                    className="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/5 transition-all"
+                                    placeholder="Enter subject..."
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Notice Type</label>
+                                <select
+                                    value={formData.type}
+                                    onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
+                                    className="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 focus:outline-none focus:border-indigo-500 transition-all appearance-none cursor-pointer"
+                                >
+                                    <option value="info">Information (Blue)</option>
+                                    <option value="warning">Critical Warning (Yellow)</option>
+                                    <option value="success">System Update (Green)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">Content</label>
+                            <textarea
+                                value={formData.content}
+                                onChange={(e) => setFormData({ ...formData, content: e.target.value })}
+                                className="w-full px-5 py-3 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/5 transition-all h-[132px] resize-none"
+                                placeholder="Describe the announcement in detail..."
+                            />
+                        </div>
                     </div>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Content</label>
-                        <textarea
-                            value={formData.content}
-                            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-indigo-500 h-24"
-                            placeholder="Announcement content"
-                        />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-medium text-slate-300 mb-2">Type</label>
-                        <select
-                            value={formData.type}
-                            onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-indigo-500"
+                    <div className="flex justify-end pt-2">
+                        <button
+                            onClick={handleCreate}
+                            disabled={saving || !formData.title || !formData.content}
+                            className="px-8 py-3 bg-slate-900 text-white rounded-2xl hover:bg-indigo-600 transition-all disabled:opacity-50 font-bold shadow-lg"
                         >
-                            <option value="info">Info</option>
-                            <option value="warning">Warning</option>
-                            <option value="success">Success</option>
-                        </select>
+                            {saving ? "Deploying..." : "Send Announcement"}
+                        </button>
                     </div>
-                    <button
-                        onClick={handleCreate}
-                        disabled={saving || !formData.title || !formData.content}
-                        className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors disabled:opacity-50"
-                    >
-                        {saving ? "Creating..." : "Create Announcement"}
-                    </button>
                 </div>
             )}
 
             {/* Announcements List */}
-            <div className="space-y-4">
+            <div className="space-y-6">
                 {announcements.length === 0 ? (
-                    <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-8 text-center">
-                        <p className="text-slate-400">No announcements yet</p>
+                    <div className="bg-white border border-slate-200 border-dashed rounded-[2rem] p-16 text-center">
+                        <div className="w-16 h-16 bg-slate-50 rounded-2xl flex items-center justify-center mx-auto mb-4 text-2xl">📭</div>
+                        <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No notifications deployed</p>
                     </div>
                 ) : (
                     announcements.map((announcement) => (
                         <div
                             key={announcement.id}
-                            className={`border rounded-xl p-6 ${typeColors[announcement.type]} ${!announcement.is_active ? "opacity-50" : ""
+                            className={`group border rounded-[2rem] p-8 transition-all hover:shadow-xl hover:-translate-y-1 ${typeColors[announcement.type]} ${!announcement.is_active ? "opacity-60 bg-slate-50 border-slate-200 shadow-none grayscale" : "shadow-lg"
                                 }`}
                         >
-                            <div className="flex justify-between items-start">
-                                <div>
-                                    <div className="flex items-center gap-3">
-                                        <h3 className="text-lg font-semibold">{announcement.title}</h3>
-                                        <span className="text-xs uppercase font-medium">{announcement.type}</span>
+                            <div className="flex flex-col md:flex-row justify-between items-start gap-6">
+                                <div className="flex-1">
+                                    <div className="flex items-center gap-4 mb-3">
+                                        <div className="h-2 w-2 rounded-full bg-current animate-pulse"></div>
+                                        <h3 className="text-xl font-black tracking-tight">{announcement.title}</h3>
+                                        <span className={`px-2.5 py-1 rounded-lg text-[10px] font-black uppercase tracking-tighter border-2 ${typeColors[announcement.type]}`}>
+                                            {announcement.type}
+                                        </span>
                                         {!announcement.is_active && (
-                                            <span className="text-xs bg-slate-600 px-2 py-1 rounded">Inactive</span>
+                                            <span className="text-[10px] bg-slate-200 text-slate-600 px-2 py-0.5 rounded-full font-bold uppercase">Disabled</span>
                                         )}
                                     </div>
-                                    <p className="mt-2 opacity-80">{announcement.content}</p>
-                                    <p className="text-xs mt-3 opacity-60">
-                                        Created: {new Date(announcement.created_at).toLocaleString()}
-                                    </p>
+                                    <p className="text-lg leading-relaxed opacity-90 font-medium">{announcement.content}</p>
+                                    <div className="flex items-center gap-2 mt-6">
+                                        <div className="w-6 h-6 rounded-full bg-white flex items-center justify-center text-[10px] shadow-sm">📅</div>
+                                        <p className="text-[11px] font-bold opacity-60 uppercase tracking-widest">
+                                            Deployed: {new Date(announcement.created_at).toLocaleDateString()} at {new Date(announcement.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                        </p>
+                                    </div>
                                 </div>
-                                <div className="flex gap-2">
+                                <div className="flex gap-3 self-end md:self-start">
                                     <button
                                         onClick={() => handleToggle(announcement.id, announcement.is_active)}
-                                        className="px-3 py-1 bg-slate-700 text-white rounded text-sm hover:bg-slate-600"
+                                        className="px-5 py-2.5 bg-white/50 backdrop-blur-sm border-2 border-current/20 rounded-xl text-sm font-bold hover:bg-white transition-all active:scale-95"
                                     >
-                                        {announcement.is_active ? "Disable" : "Enable"}
+                                        {announcement.is_active ? "Pause Activity" : "Resume Activity"}
                                     </button>
                                     <button
                                         onClick={() => handleDelete(announcement.id)}
-                                        className="px-3 py-1 bg-red-600 text-white rounded text-sm hover:bg-red-700"
+                                        className="px-5 py-2.5 bg-rose-600 text-white rounded-xl text-sm font-bold hover:bg-rose-700 transition-all shadow-lg active:scale-95"
                                     >
-                                        Delete
+                                        Remove
                                     </button>
                                 </div>
                             </div>

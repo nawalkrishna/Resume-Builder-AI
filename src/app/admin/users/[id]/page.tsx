@@ -105,102 +105,122 @@ export default function UserDetailPage() {
     }
 
     return (
-        <div className="space-y-6">
+        <div className="space-y-8">
             {/* Header */}
             <div className="flex items-center gap-4">
-                <Link href="/admin/users" className="text-slate-400 hover:text-white">
-                    ← Back to Users
+                <Link href="/admin/users" className="text-slate-400 hover:text-slate-900 font-bold text-xs uppercase tracking-widest transition-colors flex items-center gap-2">
+                    <span className="text-lg">←</span> Back to Registry
                 </Link>
             </div>
 
-            <div className="flex justify-between items-start">
+            <div className="flex flex-col md:flex-row justify-between items-start gap-6">
                 <div>
-                    <h1 className="text-3xl font-bold text-white">User Details</h1>
-                    <code className="text-slate-400 text-sm mt-1">{userId}</code>
+                    <h1 className="text-4xl font-black text-slate-900 tracking-tight">Profile Analysis</h1>
+                    <div className="flex items-center gap-3 mt-2">
+                        <span className="px-3 py-1 bg-slate-100 text-slate-500 rounded-full text-[10px] font-mono border border-slate-200">{userId}</span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                        <span className="text-slate-400 text-xs font-bold uppercase tracking-tighter">Active Identity</span>
+                    </div>
                 </div>
-                <div className="flex gap-3">
+                <div className="flex gap-4">
                     <button
                         onClick={handleBanUser}
                         disabled={actionLoading}
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${userData.profile?.is_banned
-                                ? "bg-green-600 hover:bg-green-700 text-white"
-                                : "bg-red-600 hover:bg-red-700 text-white"
+                        className={`px-8 py-3.5 rounded-2xl font-black text-sm transition-all shadow-lg active:scale-95 ${userData.profile?.is_banned
+                            ? "bg-emerald-500 hover:bg-emerald-600 text-white shadow-emerald-200"
+                            : "bg-rose-500 hover:bg-rose-600 text-white shadow-rose-200"
                             }`}
                     >
-                        {actionLoading ? "..." : userData.profile?.is_banned ? "Unban User" : "Ban User"}
+                        {actionLoading ? "Processing..." : userData.profile?.is_banned ? "Restore Access" : "Restrict Access"}
                     </button>
                 </div>
             </div>
 
             {/* Status Banner */}
             {userData.profile?.is_banned && (
-                <div className="bg-red-500/20 border border-red-500/50 rounded-lg p-4">
-                    <p className="text-red-400 font-medium">⚠️ This user is currently banned</p>
-                    {userData.profile.ban_reason && (
-                        <p className="text-red-300 text-sm mt-1">Reason: {userData.profile.ban_reason}</p>
-                    )}
+                <div className="bg-rose-50 border-2 border-rose-100 rounded-[2rem] p-8 flex items-start gap-6 shadow-xl shadow-rose-100/50">
+                    <div className="text-4xl">⚠️</div>
+                    <div>
+                        <p className="text-rose-900 font-black text-lg tracking-tight">Identity Restrictive Mode Active</p>
+                        {userData.profile.ban_reason && (
+                            <p className="text-rose-600/80 font-medium mt-1 leading-relaxed italic">Reason for restriction: "{userData.profile.ban_reason}"</p>
+                        )}
+                    </div>
                 </div>
             )}
 
             {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">Total Resumes</p>
-                    <p className="text-3xl font-bold text-white mt-1">{userData.resumes.length}</p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-indigo-200 transition-all">
+                    <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Asset Volume</p>
+                    <p className="text-4xl font-black text-slate-900">{userData.resumes.length} <span className="text-base text-slate-300 font-medium">Resumes</span></p>
                 </div>
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">Total Downloads</p>
-                    <p className="text-3xl font-bold text-white mt-1">{userData.downloads.length}</p>
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-emerald-200 transition-all">
+                    <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Export Activity</p>
+                    <p className="text-4xl font-black text-slate-900">{userData.downloads.length} <span className="text-base text-slate-300 font-medium">Downloads</span></p>
                 </div>
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">AI Enhances</p>
-                    <p className="text-3xl font-bold text-white mt-1">{userData.aiUsage.length}</p>
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-violet-200 transition-all">
+                    <p className="text-slate-400 font-bold text-[10px] uppercase tracking-widest mb-1">Compute Usage</p>
+                    <p className="text-4xl font-black text-slate-900">{userData.aiUsage.length} <span className="text-base text-slate-300 font-medium">AI Tasks</span></p>
                 </div>
             </div>
 
-            {/* Resumes */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                <h2 className="text-lg font-semibold text-white mb-4">Resumes</h2>
-                {userData.resumes.length === 0 ? (
-                    <p className="text-slate-400">No resumes created</p>
-                ) : (
-                    <div className="space-y-3">
-                        {userData.resumes.map((resume: any) => (
-                            <div key={resume.id} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
-                                <div>
-                                    <p className="text-white font-medium">{resume.name}</p>
-                                    <p className="text-slate-400 text-xs">
-                                        Created: {new Date(resume.created_at).toLocaleString()}
-                                    </p>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Resumes */}
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm">
+                    <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">📂 Digital Assets</h2>
+                    {userData.resumes.length === 0 ? (
+                        <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-8 text-center">
+                            <p className="text-slate-400 font-medium">No assets recorded</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {userData.resumes.map((resume: any) => (
+                                <div key={resume.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100 group hover:border-indigo-200 transition-all">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm">📄</div>
+                                        <div>
+                                            <p className="text-slate-900 font-bold">{resume.name}</p>
+                                            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-tighter">
+                                                Created {new Date(resume.created_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span className="opacity-0 group-hover:opacity-100 transition-opacity text-indigo-600">→</span>
                                 </div>
-                            </div>
-                        ))}
-                    </div>
-                )}
-            </div>
+                            ))}
+                        </div>
+                    )}
+                </div>
 
-            {/* Recent Downloads */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                <h2 className="text-lg font-semibold text-white mb-4">Recent Downloads</h2>
-                {userData.downloads.length === 0 ? (
-                    <p className="text-slate-400">No downloads yet</p>
-                ) : (
-                    <div className="space-y-3">
-                        {userData.downloads.map((download: any) => (
-                            <div key={download.id} className="flex items-center justify-between p-3 bg-slate-700/50 rounded-lg">
-                                <div>
-                                    <p className="text-white font-medium">{download.resumes?.name || "Deleted Resume"}</p>
-                                    <p className="text-slate-400 text-xs">
-                                        {new Date(download.downloaded_at).toLocaleString()}
-                                    </p>
+                {/* Recent Downloads */}
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm">
+                    <h2 className="text-xl font-bold text-slate-900 mb-6 flex items-center gap-2">📥 Export History</h2>
+                    {userData.downloads.length === 0 ? (
+                        <div className="bg-slate-50 border border-dashed border-slate-200 rounded-2xl p-8 text-center">
+                            <p className="text-slate-400 font-medium">No exports recorded</p>
+                        </div>
+                    ) : (
+                        <div className="space-y-3">
+                            {userData.downloads.map((download: any) => (
+                                <div key={download.id} className="flex items-center justify-between p-4 bg-slate-50 rounded-2xl border border-slate-100">
+                                    <div className="flex items-center gap-4">
+                                        <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center shadow-sm text-xs">⬇️</div>
+                                        <div>
+                                            <p className="text-slate-900 font-bold leading-none">{download.resumes?.name || "Cleanup Resource"}</p>
+                                            <p className="text-slate-400 text-[10px] font-bold uppercase mt-1 tracking-tighter">
+                                                {new Date(download.downloaded_at).toLocaleDateString()}
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <span className="text-[10px] font-black bg-indigo-50 text-indigo-600 px-2 py-1 rounded-lg border border-indigo-100 uppercase">
+                                        {download.format}
+                                    </span>
                                 </div>
-                                <span className="text-xs bg-indigo-600/20 text-indigo-400 px-2 py-1 rounded uppercase">
-                                    {download.format}
-                                </span>
-                            </div>
-                        ))}
-                    </div>
-                )}
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
         </div>
     );

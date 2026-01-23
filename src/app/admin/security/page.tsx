@@ -19,98 +19,139 @@ export default async function SecurityPage() {
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-white">Security</h1>
-                <p className="text-slate-400 mt-1">Activity logs and security monitoring</p>
+                <h1 className="text-4xl font-bold text-slate-900 tracking-tight">Security</h1>
+                <p className="text-slate-500 font-medium mt-1">Activity logs and identity monitoring</p>
             </div>
 
             {/* Quick Stats */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">Total Logs</p>
-                    <p className="text-3xl font-bold text-white mt-1">{logs.length}</p>
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-indigo-200 transition-all">
+                    <div className="flex justify-between items-start mb-4">
+                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Total Logs</p>
+                        <span className="text-xl">📜</span>
+                    </div>
+                    <p className="text-4xl font-black text-slate-900">{logs.length}</p>
+                    <div className="mt-4 h-1 w-full bg-slate-50 rounded-full overflow-hidden">
+                        <div className="h-full bg-indigo-500 w-[70%]"></div>
+                    </div>
                 </div>
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">Today's Activity</p>
-                    <p className="text-3xl font-bold text-white mt-1">
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-emerald-200 transition-all">
+                    <div className="flex justify-between items-start mb-4">
+                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Active Today</p>
+                        <span className="text-xl">⚡</span>
+                    </div>
+                    <p className="text-4xl font-black text-slate-900">
                         {logs.filter((l: any) =>
                             new Date(l.created_at).toDateString() === new Date().toDateString()
                         ).length}
                     </p>
+                    <div className="mt-4 h-1 w-full bg-slate-50 rounded-full overflow-hidden">
+                        <div className="h-full bg-emerald-500 w-[40%]"></div>
+                    </div>
                 </div>
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <p className="text-slate-400 text-sm">Unique Users</p>
-                    <p className="text-3xl font-bold text-white mt-1">
+                <div className="bg-white border border-slate-200 rounded-[2rem] p-8 shadow-sm group hover:border-violet-200 transition-all">
+                    <div className="flex justify-between items-start mb-4">
+                        <p className="text-slate-500 font-bold text-xs uppercase tracking-widest">Unique Users</p>
+                        <span className="text-xl">👤</span>
+                    </div>
+                    <p className="text-4xl font-black text-slate-900">
                         {new Set(logs.map((l: any) => l.user_id)).size}
                     </p>
+                    <div className="mt-4 h-1 w-full bg-slate-50 rounded-full overflow-hidden">
+                        <div className="h-full bg-violet-500 w-[60%]"></div>
+                    </div>
                 </div>
             </div>
 
             {/* Activity Logs Table */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden">
-                <div className="p-6 border-b border-slate-700">
-                    <h2 className="text-lg font-semibold text-white">Activity Logs</h2>
+            <div className="bg-white border border-slate-200 rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50">
+                <div className="p-8 border-b border-slate-100 flex justify-between items-center">
+                    <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2">
+                        📝 Activity Log Feed
+                    </h2>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest bg-slate-50 px-3 py-1 rounded-full border border-slate-100 italic">Auto-refreshing live</span>
                 </div>
-                <table className="w-full">
-                    <thead className="bg-slate-800">
-                        <tr>
-                            <th className="text-left px-6 py-4 text-slate-400 font-medium text-sm">User</th>
-                            <th className="text-left px-6 py-4 text-slate-400 font-medium text-sm">Action</th>
-                            <th className="text-left px-6 py-4 text-slate-400 font-medium text-sm">Details</th>
-                            <th className="text-left px-6 py-4 text-slate-400 font-medium text-sm">IP</th>
-                            <th className="text-left px-6 py-4 text-slate-400 font-medium text-sm">Date</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {logs.length === 0 ? (
-                            <tr>
-                                <td colSpan={5} className="px-6 py-8 text-center text-slate-400">
-                                    No activity logs yet. Logs will appear as users interact with the platform.
-                                </td>
+                <div className="overflow-x-auto">
+                    <table className="w-full text-left">
+                        <thead>
+                            <tr className="bg-slate-50/50">
+                                <th className="px-8 py-5 text-slate-400 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">Identity</th>
+                                <th className="px-8 py-5 text-slate-400 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">Action Protocol</th>
+                                <th className="px-8 py-5 text-slate-400 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">Payload Details</th>
+                                <th className="px-8 py-5 text-slate-400 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">Origin IP</th>
+                                <th className="px-8 py-5 text-slate-400 font-bold text-[10px] uppercase tracking-widest border-b border-slate-100">Timestamp</th>
                             </tr>
-                        ) : (
-                            logs.map((log: any) => (
-                                <tr key={log.id} className="border-t border-slate-700">
-                                    <td className="px-6 py-4">
-                                        <code className="text-slate-300 text-xs">
-                                            {log.user_id?.slice(0, 8) || "System"}...
-                                        </code>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className="px-2 py-1 bg-indigo-600/20 text-indigo-400 text-xs rounded">
-                                            {log.action}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-slate-400 text-sm max-w-xs truncate">
-                                        {log.details ? JSON.stringify(log.details) : "-"}
-                                    </td>
-                                    <td className="px-6 py-4 text-slate-400 text-sm">
-                                        {log.ip_address || "-"}
-                                    </td>
-                                    <td className="px-6 py-4 text-slate-400 text-sm">
-                                        {new Date(log.created_at).toLocaleString()}
+                        </thead>
+                        <tbody className="divide-y divide-slate-50">
+                            {logs.length === 0 ? (
+                                <tr>
+                                    <td colSpan={5} className="px-8 py-16 text-center text-slate-400 font-medium bg-slate-50/20">
+                                        System quiet. No activity detected in the last 24 hours.
                                     </td>
                                 </tr>
-                            ))
-                        )}
-                    </tbody>
-                </table>
+                            ) : (
+                                logs.map((log: any) => (
+                                    <tr key={log.id} className="hover:bg-slate-50 transition-colors group">
+                                        <td className="px-8 py-5">
+                                            <div className="flex items-center gap-2">
+                                                <div className="w-2 h-2 rounded-full bg-slate-300 group-hover:bg-indigo-500 transition-colors"></div>
+                                                <code className="text-slate-500 text-xs font-mono">
+                                                    {log.user_id?.slice(0, 12) || "SYSTEM"}
+                                                </code>
+                                            </div>
+                                        </td>
+                                        <td className="px-8 py-5">
+                                            <span className="px-3 py-1 bg-indigo-50 text-indigo-700 text-[10px] font-black rounded-lg border border-indigo-100 uppercase tracking-tighter">
+                                                {log.action}
+                                            </span>
+                                        </td>
+                                        <td className="px-8 py-5 max-w-xs truncate">
+                                            <span className="text-slate-600 text-sm font-medium">
+                                                {log.details ? JSON.stringify(log.details) : "—"}
+                                            </span>
+                                        </td>
+                                        <td className="px-8 py-5">
+                                            <span className="text-slate-400 text-xs font-mono bg-slate-50 px-2 py-1 rounded-md border border-slate-100">
+                                                {log.ip_address || "0.0.0.0"}
+                                            </span>
+                                        </td>
+                                        <td className="px-8 py-5">
+                                            <span className="text-slate-500 text-xs font-bold whitespace-nowrap">
+                                                {new Date(log.created_at).toLocaleString([], { dateStyle: 'short', timeStyle: 'short' })}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))
+                            )}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             {/* GDPR Export Section */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                <h2 className="text-lg font-semibold text-white mb-4">GDPR Compliance</h2>
-                <p className="text-slate-400 mb-4">
-                    Export all data for a specific user for GDPR compliance requests.
-                </p>
-                <div className="flex gap-4">
-                    <input
-                        type="text"
-                        placeholder="Enter user ID..."
-                        className="flex-1 px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-indigo-500"
-                    />
-                    <button className="px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition-colors">
-                        Export User Data
-                    </button>
+            <div className="bg-white border border-slate-200 rounded-[2.5rem] p-10 shadow-lg shadow-slate-100">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-8">
+                    <div className="flex-1">
+                        <h2 className="text-2xl font-black text-slate-900 tracking-tight flex items-center gap-3">
+                            ⚖️ GDPR Resilience <span className="bg-emerald-50 text-emerald-600 text-[10px] px-2 py-1 rounded-full uppercase tracking-widest font-bold border border-emerald-100">Compliant</span>
+                        </h2>
+                        <p className="text-slate-500 font-medium mt-3 leading-relaxed">
+                            Generate cryptographic exports of all persistent data associated with a specific user identity to satisfy formal data portability and access requests.
+                        </p>
+                    </div>
+                    <div className="w-full md:w-[400px] space-y-4">
+                        <div className="relative group">
+                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">🆔</span>
+                            <input
+                                type="text"
+                                placeholder="Target User ID or GUID..."
+                                className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-900 focus:outline-none focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/5 transition-all font-mono text-xs"
+                            />
+                        </div>
+                        <button className="w-full px-8 py-4 bg-slate-900 text-white rounded-2xl hover:bg-indigo-600 transition-all font-bold shadow-xl active:scale-95">
+                            Execute Secure Export
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

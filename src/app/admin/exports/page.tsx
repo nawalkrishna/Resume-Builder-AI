@@ -120,105 +120,113 @@ export default function ExportsPage() {
         <div className="space-y-8">
             {/* Header */}
             <div>
-                <h1 className="text-3xl font-bold text-white">Exports</h1>
-                <p className="text-slate-400 mt-1">Download platform data as CSV files</p>
+                <h1 className="text-4xl font-bold text-slate-900 tracking-tight">Data Exports</h1>
+                <p className="text-slate-500 font-medium mt-1">Generate and download platform data as CSV for offline analysis</p>
             </div>
 
             {/* Export Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
-                            <span className="text-2xl">👥</span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm group hover:border-blue-200 transition-all">
+                    <div className="flex items-start gap-6">
+                        <div className="w-16 h-16 bg-blue-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform">
+                            👥
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white">Users</h3>
-                            <p className="text-slate-400 text-sm mt-1">
-                                Export all users with their resume counts
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Identity Registry</h3>
+                            <p className="text-slate-500 font-medium text-sm mt-2 leading-relaxed">
+                                Complete ledger of all registered users, including their aggregate resume contributions and activation dates.
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={handleExportUsers}
                         disabled={exporting === "users"}
-                        className="mt-4 w-full px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                        className="mt-8 w-full px-6 py-4 bg-slate-900 text-white rounded-2xl hover:bg-blue-600 transition-all disabled:opacity-50 font-bold shadow-lg flex items-center justify-center gap-2 group/btn"
                     >
-                        {exporting === "users" ? "Exporting..." : "Export Users CSV"}
+                        {exporting === "users" ? "Processing..." : "Download CSV"}
+                        <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
                 </div>
 
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
-                            <span className="text-2xl">📄</span>
+                <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm group hover:border-emerald-200 transition-all">
+                    <div className="flex items-start gap-6">
+                        <div className="w-16 h-16 bg-emerald-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform">
+                            📄
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white">Resumes</h3>
-                            <p className="text-slate-400 text-sm mt-1">
-                                Export all resumes with metadata
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Asset Inventory</h3>
+                            <p className="text-slate-500 font-medium text-sm mt-2 leading-relaxed">
+                                Detailed catalog of all resume assets, including naming conventions, ownership, and last modification timestamps.
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={handleExportResumes}
                         disabled={exporting === "resumes"}
-                        className="mt-4 w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50"
+                        className="mt-8 w-full px-6 py-4 bg-slate-900 text-white rounded-2xl hover:bg-emerald-600 transition-all disabled:opacity-50 font-bold shadow-lg flex items-center justify-center gap-2 group/btn"
                     >
-                        {exporting === "resumes" ? "Exporting..." : "Export Resumes CSV"}
+                        {exporting === "resumes" ? "Processing..." : "Download CSV"}
+                        <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
                 </div>
 
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
-                            <span className="text-2xl">📥</span>
+                <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm group hover:border-violet-200 transition-all">
+                    <div className="flex items-start gap-6">
+                        <div className="w-16 h-16 bg-violet-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform">
+                            📥
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white">Downloads</h3>
-                            <p className="text-slate-400 text-sm mt-1">
-                                Export download history
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Traffic Metrics</h3>
+                            <p className="text-slate-500 font-medium text-sm mt-2 leading-relaxed">
+                                Granular history of all document downloads, segmented by format, user, and temporal data.
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={handleExportDownloads}
                         disabled={exporting === "downloads"}
-                        className="mt-4 w-full px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors disabled:opacity-50"
+                        className="mt-8 w-full px-6 py-4 bg-slate-900 text-white rounded-2xl hover:bg-violet-600 transition-all disabled:opacity-50 font-bold shadow-lg flex items-center justify-center gap-2 group/btn"
                     >
-                        {exporting === "downloads" ? "Exporting..." : "Export Downloads CSV"}
+                        {exporting === "downloads" ? "Processing..." : "Download CSV"}
+                        <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
                 </div>
 
-                <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 bg-orange-500/20 rounded-xl flex items-center justify-center">
-                            <span className="text-2xl">🤖</span>
+                <div className="bg-white border border-slate-200 rounded-[2.5rem] p-8 shadow-sm group hover:border-orange-200 transition-all">
+                    <div className="flex items-start gap-6">
+                        <div className="w-16 h-16 bg-orange-50 rounded-2xl flex items-center justify-center text-3xl shadow-inner group-hover:scale-110 transition-transform">
+                            🤖
                         </div>
                         <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-white">AI Usage</h3>
-                            <p className="text-slate-400 text-sm mt-1">
-                                Export AI enhancement usage data
+                            <h3 className="text-2xl font-black text-slate-900 tracking-tight">Intelligence Usage</h3>
+                            <p className="text-slate-500 font-medium text-sm mt-2 leading-relaxed">
+                                Complete audit trail of AI-powered document enhancements, including token consumption and cost metrics.
                             </p>
                         </div>
                     </div>
                     <button
                         onClick={handleExportAIUsage}
                         disabled={exporting === "ai"}
-                        className="mt-4 w-full px-4 py-2 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors disabled:opacity-50"
+                        className="mt-8 w-full px-6 py-4 bg-slate-900 text-white rounded-2xl hover:bg-orange-600 transition-all disabled:opacity-50 font-bold shadow-lg flex items-center justify-center gap-2 group/btn"
                     >
-                        {exporting === "ai" ? "Exporting..." : "Export AI Usage CSV"}
+                        {exporting === "ai" ? "Processing..." : "Download CSV"}
+                        <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
                     </button>
                 </div>
             </div>
 
             {/* Info */}
-            <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-6">
-                <h3 className="text-lg font-semibold text-white mb-2">Export Information</h3>
-                <ul className="space-y-2 text-slate-400 text-sm">
-                    <li>• All exports are in CSV format, compatible with Excel and Google Sheets</li>
-                    <li>• Large exports may take a few seconds to generate</li>
-                    <li>• Files are named with the current date for easy organization</li>
-                </ul>
+            <div className="bg-slate-900 text-white rounded-[2.5rem] p-10 flex flex-col md:flex-row items-center gap-10">
+                <div className="text-5xl">💡</div>
+                <div className="space-y-2">
+                    <h3 className="text-xl font-bold tracking-tight">Export Guidelines</h3>
+                    <ul className="grid grid-cols-1 md:grid-cols-2 gap-4 text-slate-400 text-sm font-medium">
+                        <li className="flex items-center gap-2"><span className="text-indigo-400 text-lg">•</span> Universal CSV format compatibility</li>
+                        <li className="flex items-center gap-2"><span className="text-indigo-400 text-lg">•</span> Real-time data generation</li>
+                        <li className="flex items-center gap-2"><span className="text-indigo-400 text-lg">•</span> Automatic temporal file naming</li>
+                        <li className="flex items-center gap-2"><span className="text-indigo-400 text-lg">•</span> High-precision decimal cost tracking</li>
+                    </ul>
+                </div>
             </div>
         </div>
     );
