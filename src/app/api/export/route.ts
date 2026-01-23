@@ -48,10 +48,30 @@ export async function POST(req: NextRequest) {
     const isServerless = process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME;
 
     if (isServerless) {
-      chromium.setGraphicsMode = false;
-      chromium.setHeadless = true;
-      executablePath = await chromium.executablePath();
-      console.log("Serverless detected. Using chromium.executablePath:", executablePath);
+      try {
+        chromium.setGraphicsMode = false;
+        chromium.setHeadless = true;
+
+        // Attempt local resolution
+        executablePath = await chromium.executablePath();
+
+        // Fallback: If for some reason the above returns a path that doesn't exist 
+        // (though chromium lib usually handles this)
+        if (!fs.existsSync(executablePath)) {
+          console.warn("Chromium local path missing. Using remote fallback.");
+          executablePath = await chromium.executablePath(
+            `https://github.com/sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar`
+          );
+        }
+
+        console.log("Vercel/Serverless path resolved:", executablePath);
+      } catch (cerr) {
+        console.error("Local Chromium resolution failed:", cerr);
+        // Direct remote fallback
+        executablePath = await chromium.executablePath(
+          `https://github.com/sparticuz/chromium/releases/download/v132.0.0/chromium-v132.0.0-pack.tar`
+        );
+      }
     } else if (process.platform === "win32") {
       const localBrowser = findBrowserExecutable();
       if (!localBrowser) {
