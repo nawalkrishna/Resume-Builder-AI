@@ -131,11 +131,18 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                         <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Dashboard</h1>
                         <p className="text-slate-500 font-medium text-[15px]">Manage your resumes and track downloads</p>
                     </div>
-                    <Link href="/templates">
-                        <Button size="md" className="h-12 shadow-lg shadow-indigo-200 font-bold px-8">
-                            + Create New Resume
-                        </Button>
-                    </Link>
+                    <div className="flex flex-wrap items-center gap-4">
+                        <Link href="/convert">
+                            <Button variant="outline" size="md" className="h-12 font-bold px-8 bg-white border-slate-200 text-slate-700 hover:bg-slate-50">
+                                <span className="mr-2">🔄</span> JSON Converter
+                            </Button>
+                        </Link>
+                        <Link href="/templates">
+                            <Button size="md" className="h-12 shadow-lg shadow-indigo-200 font-bold px-8">
+                                + Create New Resume
+                            </Button>
+                        </Link>
+                    </div>
                 </motion.div>
 
                 {/* Resumes Grid */}
