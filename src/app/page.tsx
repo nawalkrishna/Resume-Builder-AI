@@ -59,7 +59,7 @@ export default function LandingPage() {
   ];
 
   return (
-    <main className="min-h-screen flex flex-col bg-white overflow-x-hidden font-outfit">
+    <main className="min-h-screen flex flex-col bg-white overflow-x-hidden font-outfit pt-[100px]">
       <Navbar />
 
       {/* Hero Section */}
@@ -84,18 +84,18 @@ export default function LandingPage() {
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-3 pt-1">
+            <div className="flex flex-col sm:flex-row gap-4 pt-2">
               <Button
-                size="md"
-                className="h-10 px-6 rounded-xl text-sm font-bold bg-primary hover:bg-primary-dark transition-all shadow-lg shadow-sky-100 flex-1 sm:flex-none"
+                size="lg"
+                className="h-14 px-10 rounded-xl text-base font-bold bg-primary hover:bg-primary-dark transition-all shadow-lg shadow-sky-100 flex-1 sm:flex-none"
                 onClick={() => router.push("/templates")}
               >
                 Build My Resume
               </Button>
               <Button
-                size="md"
+                size="lg"
                 variant="outline"
-                className="h-10 px-6 rounded-xl text-sm font-bold border border-primary text-primary hover:bg-primary/5 transition-all flex-1 sm:flex-none"
+                className="h-14 px-10 rounded-xl text-base font-bold border border-primary text-primary hover:bg-primary/5 transition-all flex-1 sm:flex-none"
                 onClick={() => router.push("/convert")}
               >
                 Data Studio
@@ -118,10 +118,10 @@ export default function LandingPage() {
               <div className="flex -space-x-3">
                 {[1, 2, 3, 4, 5].map((i) => (
                   <div key={i} className={`w-9 h-9 rounded-full border-[3px] border-white flex items-center justify-center text-[10px] text-white font-bold shadow-sm bg-gradient-to-br ${i === 1 ? 'from-blue-500 to-indigo-600' :
-                      i === 2 ? 'from-purple-500 to-fuchsia-600' :
-                        i === 3 ? 'from-emerald-500 to-teal-600' :
-                          i === 4 ? 'from-amber-500 to-orange-600' :
-                            'from-rose-500 to-pink-600'
+                    i === 2 ? 'from-purple-500 to-fuchsia-600' :
+                      i === 3 ? 'from-emerald-500 to-teal-600' :
+                        i === 4 ? 'from-amber-500 to-orange-600' :
+                          'from-rose-500 to-pink-600'
                     }`}>
                     {['JD', 'AS', 'MR', 'LK', 'TF'][i - 1]}
                   </div>

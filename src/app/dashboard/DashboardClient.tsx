@@ -99,7 +99,12 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                     <Link href="/">
                         <Logo />
                     </Link>
-                    <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-4">
+                        <Link href="/">
+                            <Button variant="ghost" size="sm" className="text-slate-500 hover:text-primary font-bold hidden md:flex gap-2">
+                                <span>🏠</span> Home
+                            </Button>
+                        </Link>
                         {isAdmin && (
                             <Link href="/admin">
                                 <Button variant="ghost" size="sm" className="text-primary hover:bg-sky-50 font-bold hidden md:flex">
