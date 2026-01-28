@@ -88,7 +88,7 @@ export const ClassicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
             {data.skills.categories && data.skills.categories.some(cat => cat.skills) && (
                 <section className="mb-5">
                     <h2 className="text-lg font-bold uppercase border-b border-gray-400 mb-2">Technical Skills</h2>
-                    {data.skills.categories.map((cat, i) => (
+                    {(data.skills.categories || []).map((cat, i) => (
                         cat.skills && (
                             <p key={i} className="text-sm">
                                 <span className="font-bold">{cat.category}:</span> {cat.skills}

@@ -103,8 +103,8 @@ export const BoldTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                             Skills
                         </h2>
                         <div className="flex flex-wrap gap-3">
-                            {data.skills.categories.map((cat, i) => (
-                                cat.skills && cat.skills.split(",").map((skill, j) => (
+                            {(data.skills.categories || []).map((cat, i) => (
+                                (cat.skills || "").split(",").filter(s => s.trim()).map((skill, j) => (
                                     <span key={`${i}-${j}`} className="px-4 py-2 bg-slate-900 text-white text-[10px] font-black uppercase tracking-wider rounded-xl">
                                         {skill.trim()}
                                     </span>

@@ -104,27 +104,27 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
     // Helper: Skills
     const SkillsContent = () => (
         <div className="space-y-4">
-            {data.skills.categories.map((cat, i) => (
+            {(data.skills.categories || []).map((cat, i) => (
                 <div key={i}>
                     <div className={`text-[10px] font-bold uppercase tracking-wider mb-2 ${c.accent}`}>{cat.category}</div>
                     {skillStyle === "list" && <div className="text-xs text-slate-600 font-medium leading-relaxed">{cat.skills}</div>}
                     {skillStyle === "bubbles" && (
                         <div className="flex flex-wrap gap-2">
-                            {cat.skills.split(',').map((s, j) => (
+                            {(cat.skills || "").split(',').filter(s => s.trim()).map((s, j) => (
                                 <span key={j} className={`text-[9px] font-bold uppercase px-2 py-1 rounded-full border ${c.border} bg-white text-slate-600`}>{s.trim()}</span>
                             ))}
                         </div>
                     )}
                     {skillStyle === "pills" && (
                         <div className="flex flex-wrap gap-2">
-                            {cat.skills.split(',').map((s, j) => (
+                            {(cat.skills || "").split(',').filter(s => s.trim()).map((s, j) => (
                                 <span key={j} className={`text-[9px] font-bold uppercase px-3 py-1 rounded-sm ${c.bg} ${c.primary}`}>{s.trim()}</span>
                             ))}
                         </div>
                     )}
                     {skillStyle === "tags" && (
                         <div className="flex flex-wrap gap-x-3 gap-y-1 text-xs font-semibold text-slate-600">
-                            {cat.skills.split(',').map((s, j) => (
+                            {(cat.skills || "").split(',').filter(s => s.trim()).map((s, j) => (
                                 <span key={j} className="border-b border-slate-100 pb-0.5">#{s.trim()}</span>
                             ))}
                         </div>

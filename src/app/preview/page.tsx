@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import { Button } from "@/components/ui/Button";
+import { ScaleWrapper } from "@/components/ui/ScaleWrapper";
 import { Input } from "@/components/ui/Input";
 import { useResume } from "@/lib/context/ResumeContext";
 import { generateLaTeX } from "@/lib/templates/latex-template";

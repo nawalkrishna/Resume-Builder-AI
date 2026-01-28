@@ -99,7 +99,7 @@ export const ModernTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                         <section>
                             <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">Technical Skills</h2>
                             <div className="grid grid-cols-2 gap-4">
-                                {data.skills.categories.map((cat, i) => (
+                                {(data.skills.categories || []).map((cat, i) => (
                                     cat.skills && (
                                         <div key={i} className="text-sm">
                                             <span className="font-bold text-slate-800">{cat.category}:</span>{" "}

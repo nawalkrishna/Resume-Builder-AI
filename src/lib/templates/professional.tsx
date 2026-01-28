@@ -57,7 +57,7 @@ export const ProfessionalTemplate: React.FC<{ data: ResumeData }> = ({ data }) =
                     <div className="mb-6">
                         <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Skills</h3>
                         <div className="space-y-3">
-                            {data.skills.categories.map((cat, i) => (
+                            {(data.skills.categories || []).map((cat, i) => (
                                 cat.skills && (
                                     <div key={i}>
                                         <p className="font-semibold text-sm mb-1">{cat.category}</p>

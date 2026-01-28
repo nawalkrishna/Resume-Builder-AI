@@ -100,8 +100,8 @@ export const ElegantTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     <section>
                         <h2 className="text-[10px] font-black uppercase tracking-[0.4em] text-slate-900 mb-8 text-center">Skills</h2>
                         <div className="flex flex-wrap justify-center gap-2">
-                            {data.skills.categories.map((cat, i) => (
-                                cat.skills && cat.skills.split(",").map((skill, j) => (
+                            {(data.skills.categories || []).map((cat, i) => (
+                                (cat.skills || "").split(",").filter(s => s.trim()).map((skill, j) => (
                                     <span key={`${i}-${j}`} className="px-4 py-1.5 border border-slate-200 text-slate-600 text-[9px] font-bold uppercase tracking-wide rounded-full">
                                         {skill.trim()}
                                     </span>

@@ -95,7 +95,7 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                         <section>
                             <h2 className="text-[9pt] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Expertise</h2>
                             <div className="space-y-2.5">
-                                {data.skills.categories.map((cat, i) => (
+                                {(data.skills.categories || []).map((cat, i) => (
                                     cat.skills && (
                                         <div key={i}>
                                             <div className="text-[8pt] font-black uppercase tracking-wider text-slate-400 mb-0.5">{cat.category}</div>

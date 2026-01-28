@@ -101,7 +101,7 @@ export const ATSResumeTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 <section className="space-y-1">
                     <h2 className="text-[12pt] font-bold uppercase tracking-tight border-b-[1pt] border-black">Technical Skills</h2>
                     <div className="space-y-0.5">
-                        {data.skills.categories.map((cat, i) => (
+                        {(data.skills.categories || []).map((cat, i) => (
                             cat.skills && <p key={i}><strong>{cat.category}:</strong> {cat.skills}</p>
                         ))}
                     </div>

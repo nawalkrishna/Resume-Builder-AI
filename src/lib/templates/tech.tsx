@@ -33,7 +33,7 @@ export const TechTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
             <section>
                 <h2 className="text-xs font-black uppercase tracking-[0.3em] text-slate-400 mb-4 border-b border-block pb-1 inline-block">Technical Stack</h2>
                 <div className="flex flex-wrap gap-2">
-                    {data.skills.categories.map((cat, i) => (
+                    {(data.skills.categories || []).map((cat, i) => (
                         <div key={i} className="px-3 py-1.5 bg-slate-100/50 rounded-lg border border-slate-200 text-[10px] font-black uppercase text-slate-600">
                             {cat.category}: {cat.skills}
                         </div>

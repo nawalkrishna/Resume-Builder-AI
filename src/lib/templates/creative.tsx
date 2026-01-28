@@ -44,12 +44,16 @@ export const CreativeTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     <section>
                         <h2 className="text-[10px] font-black uppercase tracking-[0.2em] text-primary mb-4">Expertise</h2>
                         <div className="flex flex-wrap gap-2">
-                            {data.skills.categories.map((cat, i) => (
-                                cat.skills && cat.skills.split(",").map((skill, j) => (
-                                    <span key={`${i}-${j}`} className="px-3 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-lg text-[9px] font-black uppercase shadow-sm">
-                                        {skill.trim()}
-                                    </span>
-                                ))
+                            {(data.skills.categories || []).map((cat, i) => (
+                                (cat.skills || "").split(",").map((skill: string, j: number) => {
+                                    const trimmed = skill.trim();
+                                    if (!trimmed) return null;
+                                    return (
+                                        <span key={`${i}-${j}`} className="px-3 py-1.5 bg-white border border-slate-200 text-slate-600 rounded-lg text-[9px] font-black uppercase shadow-sm">
+                                            {trimmed}
+                                        </span>
+                                    );
+                                })
                             ))}
                         </div>
                     </section>

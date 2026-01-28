@@ -35,15 +35,15 @@ const templateRegistry: Record<string, TemplateComponent> = {
     elegant: ElegantTemplate,
     bold: BoldTemplate,
     // New templates using flexible system
-    clean: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "sans", layout: "classic", headerStyle: "simple", sectionStyle: "minimal", skillStyle: "tags", color: "slate" }} />,
-    corporate: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "serif", layout: "classic", headerStyle: "banner", sectionStyle: "underline", skillStyle: "list", color: "slate" }} />,
-    functional: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "mono", layout: "left-sidebar", headerStyle: "simple", sectionStyle: "side-border", skillStyle: "bubbles", color: "blue", compact: true }} />,
-    premium: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "serif", layout: "right-sidebar", headerStyle: "modern", sectionStyle: "underline", skillStyle: "pills", color: "purple" }} />,
-    sleek: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "sans", layout: "left-sidebar", headerStyle: "modern", sectionStyle: "minimal", skillStyle: "tags", color: "emerald" }} />,
-    standard: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "sans", layout: "classic", headerStyle: "centered", sectionStyle: "underline", skillStyle: "list", color: "slate" }} />,
-    basic: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "mono", layout: "classic", headerStyle: "simple", sectionStyle: "simple", skillStyle: "list", color: "slate", compact: true }} />,
-    elite: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "serif", layout: "right-sidebar", headerStyle: "banner", sectionStyle: "block", skillStyle: "bubbles", color: "rose" }} />,
-    prime: (props) => <FlexibleTemplate {...props} variant={{ fontFamily: "sans", layout: "left-sidebar", headerStyle: "modern", sectionStyle: "side-border", skillStyle: "pills", color: "amber" }} />,
+    clean: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    corporate: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    functional: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    premium: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    sleek: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    standard: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    basic: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    elite: (props) => <FlexibleTemplate {...props} variant={{}} />,
+    prime: (props) => <FlexibleTemplate {...props} variant={{}} />,
 };
 
 // Get template component by ID

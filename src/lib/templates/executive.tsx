@@ -117,7 +117,7 @@ export const ExecutiveTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                                 <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
                                     Core Competencies
                                 </h2>
-                                {data.skills.categories.map((cat, i) => (
+                                {(data.skills.categories || []).map((cat, i) => (
                                     cat.skills && (
                                         <div key={i} className="mb-2">
                                             <p className="font-semibold text-slate-900 text-sm">{cat.category}</p>
