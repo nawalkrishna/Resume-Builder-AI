@@ -200,7 +200,7 @@ export const templateList: TemplateInfo[] = [
     {
         id: "academic",
         name: "Scholar",
-        description: "Specifically structured for researchers and academic CVs.",
+        description: "Specifically structured for researchers and academic resumes.",
         category: "Professional",
     },
     {

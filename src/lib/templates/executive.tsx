@@ -3,106 +3,119 @@ import { ResumeData } from "@/lib/schemas/resume";
 
 export const ExecutiveTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
     return (
-        <div className="bg-white text-gray-900 w-[794px] mx-auto min-h-[1123px]">
+        <div className="bg-white text-slate-800 w-[210mm] mx-auto min-h-[297mm] flex flex-col shadow-none print:shadow-none font-sans">
             {/* Header - Executive Banner */}
-            <header className="bg-slate-900 text-white px-10 py-8">
-                <h1 className="text-4xl font-light tracking-wide">{data.header.name}</h1>
-                <div className="mt-3 flex flex-wrap gap-6 text-sm text-slate-300">
-                    <span>{data.header.email}</span>
-                    <span>{data.header.phone}</span>
-                    <span>{data.header.location}</span>
+            <header className="bg-slate-900 text-white px-[25mm] py-14 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-64 h-64 bg-slate-800/20 rounded-full -mr-32 -mt-32 blur-3xl" />
+                <h1 className="text-5xl font-light tracking-wide mb-6 relative z-10">{data.header.name}</h1>
+                <div className="flex flex-wrap gap-x-8 gap-y-3 text-[10.5pt] text-slate-300 relative z-10 font-medium">
+                    <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" />{data.header.email}</span>
+                    <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" />{data.header.phone}</span>
+                    <span className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-primary" />{data.header.location}</span>
                 </div>
-                <div className="mt-2 flex flex-wrap gap-4 text-sm">
-                    {data.header.linkedin && <a href={data.header.linkedin} className="text-slate-400 hover:text-white">LinkedIn</a>}
-                    {data.header.github && <a href={data.header.github} className="text-slate-400 hover:text-white">GitHub</a>}
-                    {data.header.leetcode && <a href={data.header.leetcode} className="text-slate-400 hover:text-white">LeetCode</a>}
-                    {data.header.portfolio && <a href={data.header.portfolio} className="text-slate-400 hover:text-white">Portfolio</a>}
+                <div className="mt-6 flex flex-wrap gap-6 text-[10pt] relative z-10 font-bold uppercase tracking-[0.2em]">
+                    {data.header.linkedin && <a href={data.header.linkedin} className="text-slate-400 hover:text-white transition-colors border-b border-slate-700 pb-1">LinkedIn</a>}
+                    {data.header.github && <a href={data.header.github} className="text-slate-400 hover:text-white transition-colors border-b border-slate-700 pb-1">GitHub</a>}
+                    {data.header.leetcode && <a href={data.header.leetcode} className="text-slate-400 hover:text-white transition-colors border-b border-slate-700 pb-1">LeetCode</a>}
+                    {data.header.portfolio && <a href={data.header.portfolio} className="text-slate-400 hover:text-white transition-colors border-b border-slate-700 pb-1">Portfolio</a>}
                     {data.header.customLinks?.map((link, i) => (
-                        <a key={i} href={link.url} className="text-slate-400 hover:text-white">{link.name}</a>
+                        <a key={i} href={link.url} className="text-slate-400 hover:text-white transition-colors border-b border-slate-700 pb-1">{link.name}</a>
                     ))}
                 </div>
             </header>
 
-            <div className="px-10 py-8">
+            <div className="px-[25mm] py-12 space-y-12">
                 {/* Experience */}
                 {data.experience.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
+                    <section>
+                        <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-8">
                             Professional Experience
                         </h2>
-                        {data.experience.map((exp, i) => (
-                            <div key={i} className="mb-4">
-                                <div className="flex justify-between items-baseline">
-                                    <h3 className="text-lg font-semibold text-slate-900">{exp.role}</h3>
-                                    <span className="text-sm text-slate-500">{exp.duration}</span>
+                        <div className="space-y-10">
+                            {data.experience.map((exp, i) => (
+                                <div key={i} className="group">
+                                    <div className="flex justify-between items-baseline mb-2">
+                                        <h3 className="text-[13pt] font-bold text-slate-900 tracking-tight uppercase">{exp.role}</h3>
+                                        <span className="text-[10pt] text-slate-400 font-black uppercase tracking-widest">{exp.duration}</span>
+                                    </div>
+                                    <p className="text-primary text-[11pt] font-black uppercase tracking-widest mb-4">{exp.organization}</p>
+                                    <ul className="space-y-3 text-[10.5pt] text-slate-600 leading-[1.6] font-medium">
+                                        {exp.bullets.map((bullet, j) => (
+                                            <li key={j} className="flex items-start gap-4">
+                                                <span className="text-slate-300 mt-2.5 w-4 h-[2px] bg-slate-200 shrink-0" />
+                                                <span>{bullet}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <p className="text-slate-600 font-medium">{exp.organization}</p>
-                                <ul className="mt-2 text-sm text-slate-700 space-y-1">
-                                    {exp.bullets.map((bullet, j) => (
-                                        <li key={j} className="flex items-start gap-2">
-                                            <span className="text-slate-400">—</span>
-                                            <span>{bullet}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </section>
                 )}
 
                 {/* Projects */}
                 {data.projects.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
-                            Key Projects
+                    <section>
+                        <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-8">
+                            Key Strategic Projects
                         </h2>
-                        {data.projects.map((proj, i) => (
-                            <div key={i} className="mb-4">
-                                <div className="flex justify-between items-baseline">
-                                    <h3 className="text-lg font-semibold text-slate-900">{proj.name}</h3>
-                                    {proj.link && <a href={proj.link} className="text-xs text-primary">View →</a>}
+                        <div className="space-y-10">
+                            {data.projects.map((proj, i) => (
+                                <div key={i}>
+                                    <div className="flex justify-between items-baseline mb-2">
+                                        <h3 className="text-[13pt] font-bold text-slate-900 tracking-tight uppercase">{proj.name}</h3>
+                                        {proj.link && <a href={proj.link} className="text-[10pt] text-primary font-black uppercase tracking-widest border-b-2 border-primary/20 hover:border-primary transition-all">Review →</a>}
+                                    </div>
+                                    <p className="text-slate-400 text-[10.5pt] font-bold uppercase tracking-widest mb-4 italic">{proj.techStack}</p>
+                                    <ul className="space-y-3 text-[10.5pt] text-slate-600 leading-[1.6] font-medium">
+                                        {proj.bullets.map((bullet, j) => (
+                                            <li key={j} className="flex items-start gap-4">
+                                                <span className="text-slate-300 mt-2.5 w-4 h-[2px] bg-slate-200 shrink-0" />
+                                                <span>{bullet}</span>
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
-                                <p className="text-slate-500 text-sm font-medium">{proj.techStack}</p>
-                                <ul className="mt-2 text-sm text-slate-700 space-y-1">
-                                    {proj.bullets.map((bullet, j) => (
-                                        <li key={j} className="flex items-start gap-2">
-                                            <span className="text-slate-400">—</span>
-                                            <span>{bullet}</span>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </section>
                 )}
 
                 {/* Two Column Layout */}
-                <div className="grid grid-cols-2 gap-8">
+                <div className="grid grid-cols-2 gap-12">
                     {/* Left */}
-                    <div>
+                    <div className="space-y-12">
                         {/* Education */}
-                        <section className="mb-6">
-                            <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
-                                Education
+                        <section>
+                            <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-6">
+                                Foundation
                             </h2>
-                            {data.education.map((edu, i) => (
-                                <div key={i} className="mb-3">
-                                    <h3 className="font-semibold text-slate-900">{edu.degree}</h3>
-                                    <p className="text-sm text-slate-600">{edu.institution}</p>
-                                    <p className="text-xs text-slate-500">{edu.duration} {edu.cgpa && `| ${edu.cgpa}`}</p>
-                                </div>
-                            ))}
+                            <div className="space-y-6">
+                                {data.education.map((edu, i) => (
+                                    <div key={i} className="bg-slate-50 p-6 rounded-2xl border border-slate-100">
+                                        <h3 className="text-[11.5pt] font-bold text-slate-900 uppercase tracking-tight mb-2">{edu.degree}</h3>
+                                        <p className="text-[10.5pt] text-slate-500 font-bold uppercase tracking-tight">{edu.institution}</p>
+                                        <div className="mt-3 flex justify-between items-center text-[10pt] font-black uppercase tracking-widest text-slate-400">
+                                            <span>{edu.duration}</span>
+                                            {edu.cgpa && <span className="text-slate-300 bg-white px-3 py-1 rounded-lg border border-slate-100">GPA {edu.cgpa}</span>}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
                         </section>
 
                         {/* Certifications */}
                         {data.certifications.length > 0 && (
                             <section>
-                                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
+                                <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-6">
                                     Certifications
                                 </h2>
-                                <ul className="text-sm text-slate-700 space-y-1">
+                                <ul className="space-y-3 text-[10.5pt] text-slate-600 font-medium">
                                     {data.certifications.map((cert, i) => (
-                                        <li key={i}>• {cert}</li>
+                                        <li key={i} className="flex items-center gap-3">
+                                            <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                                            {cert}
+                                        </li>
                                     ))}
                                 </ul>
                             </section>
@@ -110,33 +123,41 @@ export const ExecutiveTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     </div>
 
                     {/* Right */}
-                    <div>
+                    <div className="space-y-12">
                         {/* Skills */}
                         {data.skills.categories && data.skills.categories.some(cat => cat.skills) && (
-                            <section className="mb-6">
-                                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
-                                    Core Competencies
+                            <section>
+                                <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-6">
+                                    Expertise
                                 </h2>
-                                {(data.skills.categories || []).map((cat, i) => (
-                                    cat.skills && (
-                                        <div key={i} className="mb-2">
-                                            <p className="font-semibold text-slate-900 text-sm">{cat.category}</p>
-                                            <p className="text-sm text-slate-600">{cat.skills}</p>
-                                        </div>
-                                    )
-                                ))}
+                                <div className="space-y-6">
+                                    {(data.skills.categories || []).map((cat, i) => (
+                                        cat.skills && (
+                                            <div key={i}>
+                                                <p className="font-black text-slate-900 text-[10pt] uppercase tracking-widest mb-2 flex items-center gap-2">
+                                                    <span className="w-4 h-[2px] bg-primary" />
+                                                    {cat.category}
+                                                </p>
+                                                <p className="text-[10.5pt] text-slate-500 leading-relaxed font-medium pl-6">{cat.skills}</p>
+                                            </div>
+                                        )
+                                    ))}
+                                </div>
                             </section>
                         )}
 
                         {/* Achievements */}
                         {data.achievements.length > 0 && (
                             <section>
-                                <h2 className="text-sm font-bold uppercase tracking-[0.3em] text-slate-500 border-b border-slate-200 pb-2 mb-4">
-                                    Key Achievements
+                                <h2 className="text-[11pt] font-black uppercase tracking-[0.4em] text-slate-400 border-b-2 border-slate-100 pb-3 mb-6">
+                                    Distinctions
                                 </h2>
-                                <ul className="text-sm text-slate-700 space-y-1">
+                                <ul className="space-y-4 text-[10.5pt] text-slate-600 font-medium italic">
                                     {data.achievements.map((ach, i) => (
-                                        <li key={i}>• {ach}</li>
+                                        <li key={i} className="flex items-start gap-3">
+                                            <span className="text-primary font-black mt-[-4px]">“</span>
+                                            <span>{ach}</span>
+                                        </li>
                                     ))}
                                 </ul>
                             </section>

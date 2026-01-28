@@ -344,7 +344,7 @@ export default function LandingPage() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-black text-slate-800 tracking-tight">
-              Create your job-winning <span className="text-primary border-b-4 border-primary/20">CV in 3 simple steps</span>
+              Create your job-winning <span className="text-primary border-b-4 border-primary/20">resume in 3 simple steps</span>
             </h2>
           </div>
 
@@ -358,19 +358,19 @@ export default function LandingPage() {
                   step: "STEP 1",
                   icon: "📚",
                   title: "Choose a stylish template",
-                  desc: "Select one of the recruiter-approved CV templates designed specifically to always make it past the screening stage."
+                  desc: "Select one of the recruiter-approved resume templates designed specifically to always make it past the screening stage."
                 },
                 {
                   step: "STEP 2",
                   icon: "✍️",
-                  title: "Customize each CV section",
+                  title: "Customize each resume section",
                   desc: "Add details about your experience, education, and skills with one click. Need more sections? We've got plenty."
                 },
                 {
                   step: "STEP 3",
                   icon: "📥",
-                  title: "Download your CV in seconds",
-                  desc: "You've saved hours on CV creation—now use that extra time to prepare for job interviews and shine on them."
+                  title: "Download your resume in seconds",
+                  desc: "You've saved hours on resume creation—now use that extra time to prepare for job interviews and shine on them."
                 }
               ].map((item, i) => (
                 <motion.div
@@ -407,7 +407,7 @@ export default function LandingPage() {
             >
               <Link href="/templates">
                 <Button size="lg" className="h-14 px-12 rounded-2xl text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20">
-                  Create My CV Now
+                  Create My Resume Now
                 </Button>
               </Link>
             </motion.div>

@@ -94,52 +94,67 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
     return (
         <main className="min-h-screen bg-slate-50/30">
             {/* Header */}
-            <header className="bg-white border-b border-slate-100 sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link href="/">
-                        <Logo />
-                    </Link>
+            <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-50">
+                <div className="max-w-[1800px] mx-auto px-6 h-[76px] flex items-center justify-between">
+                    <div className="flex items-center gap-6">
+                        <Link href="/" className="hover:opacity-80 transition-opacity">
+                            <Logo />
+                        </Link>
+                        <div className="h-6 w-px bg-slate-200" />
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Workspace</span>
+                            <span className="text-sm font-black text-slate-900 tracking-tight">RESUME DESIGN STUDIO</span>
+                        </div>
+                    </div>
+
                     <div className="flex items-center gap-4">
                         <Link href="/">
-                            <Button variant="ghost" size="sm" className="text-slate-500 hover:text-primary font-bold hidden md:flex gap-2">
-                                <span>🏠</span> Home
+                            <Button variant="ghost" size="sm" className="font-black text-slate-500 hover:text-slate-900 rounded-xl px-5 uppercase tracking-widest text-[10px] hidden md:flex gap-2">
+                                Home
                             </Button>
                         </Link>
                         {isAdmin && (
                             <Link href="/admin">
-                                <Button variant="ghost" size="sm" className="text-primary hover:bg-sky-50 font-bold hidden md:flex">
-                                    🛡️ Admin
+                                <Button variant="ghost" size="sm" className="font-black text-primary hover:bg-sky-50 rounded-xl px-5 uppercase tracking-widest text-[10px] hidden md:flex">
+                                    🛡️ Admin Space
                                 </Button>
                             </Link>
                         )}
-                        <span className="text-[13px] font-bold text-slate-500 hidden sm:block">{user.email}</span>
-                        <Button variant="outline" size="sm" onClick={handleLogout} className="h-10 font-bold rounded-xl px-6">
+                        <div className="h-8 w-px bg-slate-200 mx-2 hidden sm:block" />
+                        <div className="hidden sm:flex flex-col items-end">
+                            <span className="text-[11px] font-black text-slate-900 leading-none">{user.email?.split('@')[0]}</span>
+                            <span className="text-[9px] font-bold text-slate-400 uppercase tracking-tighter mt-1">{user.email}</span>
+                        </div>
+                        <Button variant="outline" size="sm" onClick={handleLogout} className="h-10 font-black rounded-xl px-6 border-slate-200 hover:bg-slate-50 transition-all uppercase tracking-widest text-[10px]">
                             Logout
                         </Button>
                     </div>
                 </div>
             </header>
 
-            <div className="max-w-7xl mx-auto px-6 py-12 space-y-12">
+            <div className="max-w-[1800px] mx-auto px-6 py-16 space-y-16 relative">
+                {/* Background Grid Decoration */}
+                <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
+
                 {/* Welcome Section */}
                 <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="flex flex-col md:flex-row md:items-end justify-between gap-8"
+                    className="flex flex-col md:flex-row md:items-end justify-between gap-8 relative z-10"
                 >
-                    <div className="space-y-2">
-                        <h1 className="text-4xl font-extrabold text-[#2d3748] tracking-tight">Welcome back!</h1>
-                        <p className="text-lg text-slate-500 font-medium">Manage your resumes and track your job search progress.</p>
+                    <div className="space-y-4">
+                        <h1 className="text-6xl font-black text-slate-900 tracking-tighter leading-none">Your <span className="text-primary">Portfolio</span></h1>
+                        <p className="text-xl text-slate-500 font-medium max-w-lg leading-relaxed">Refine your professional identity. Launch new designs or edit existing masterpieces.</p>
                     </div>
                     <div className="flex flex-wrap items-center gap-4">
                         <Link href="/convert">
-                            <Button variant="outline" className="w-full flex items-center justify-center gap-2 border-slate-200">
-                                🔄 JSON Editor
+                            <Button variant="ghost" className="h-14 font-black text-slate-600 hover:bg-white hover:shadow-sm px-8 rounded-[1.5rem] border border-transparent hover:border-slate-200 transition-all flex items-center gap-3">
+                                <span>🔄</span> JSON ARCHIVIST
                             </Button>
                         </Link>
                         <Link href="/templates">
-                            <Button size="md" className="h-14 shadow-2xl shadow-sky-100 font-bold px-8 rounded-2xl">
-                                + New Resume
+                            <Button size="md" className="h-14 bg-slate-900 text-white hover:bg-slate-800 shadow-2xl shadow-slate-200 font-black px-10 rounded-[1.5rem] transition-all hover:-translate-y-1">
+                                + NEW PROTOCOL
                             </Button>
                         </Link>
                     </div>

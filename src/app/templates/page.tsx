@@ -33,27 +33,27 @@ export default function TemplatesPage() {
     return (
         <main className="min-h-screen bg-white">
             {/* Step Progress Header */}
-            <header className="bg-white border-b border-slate-100 sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-                    <Link href="/">
+            <header className="bg-white/80 backdrop-blur-xl border-b border-slate-200/60 sticky top-0 z-50">
+                <div className="max-w-7xl mx-auto px-6 h-[76px] flex items-center justify-between">
+                    <Link href="/" className="hover:opacity-80 transition-opacity">
                         <Logo />
                     </Link>
 
                     {/* Progress Steps */}
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden md:flex items-center gap-6">
                         <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-sky-100">1</div>
-                            <span className="font-bold text-slate-800">Select Design</span>
+                            <div className="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-black text-xs shadow-[0_8px_16px_rgba(56,189,248,0.25)] ring-4 ring-primary/10">1</div>
+                            <span className="font-black text-[11px] text-slate-900 uppercase tracking-widest leading-none">Design</span>
                         </div>
-                        <div className="w-8 h-px bg-slate-200" />
-                        <div className="flex items-center gap-3 opacity-40">
-                            <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-sm">2</div>
-                            <span className="font-bold text-slate-800">Craft Content</span>
+                        <div className="w-12 h-px bg-slate-100" />
+                        <div className="flex items-center gap-3 opacity-40 grayscale">
+                            <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-black text-[10px]">2</div>
+                            <span className="font-black text-[11px] text-slate-400 uppercase tracking-widest leading-none">Content</span>
                         </div>
-                        <div className="w-8 h-px bg-slate-200" />
-                        <div className="flex items-center gap-3 opacity-40">
-                            <div className="w-8 h-8 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-bold text-sm">3</div>
-                            <span className="font-bold text-slate-800">Finalize & Export</span>
+                        <div className="w-8 h-px bg-slate-100" />
+                        <div className="flex items-center gap-3 opacity-40 grayscale">
+                            <div className="w-6 h-6 rounded-full bg-slate-200 text-slate-600 flex items-center justify-center font-black text-[10px]">3</div>
+                            <span className="font-black text-[11px] text-slate-400 uppercase tracking-widest leading-none">Export</span>
                         </div>
                     </div>
 
@@ -61,14 +61,17 @@ export default function TemplatesPage() {
                 </div>
             </header>
 
-            <div className="max-w-7xl mx-auto px-6 py-16 space-y-12">
+            <div className="max-w-7xl mx-auto px-6 py-20 space-y-16 relative">
+                {/* Background Grid Decoration */}
+                <div className="fixed inset-0 z-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:6rem_6rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-30 pointer-events-none" />
+
                 {/* Title Section */}
-                <div className="text-center space-y-4">
-                    <h1 className="text-5xl font-extrabold text-[#2d3748] tracking-tight">Resume templates</h1>
-                    <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">
-                        Simple to use and ready in minutes resume templates — give it a try for free now!
+                <div className="text-center space-y-6 relative z-10">
+                    <h1 className="text-6xl font-black text-slate-900 tracking-tighter leading-none">Curated <span className="text-primary italic">Blueprints</span></h1>
+                    <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto leading-relaxed">
+                        Industry-standard aesthetics engineered for performance and impact.
                         <br />
-                        <button className="text-primary hover:underline font-bold mt-2">Choose later</button>
+                        <span className="text-sm font-bold text-slate-400 mt-4 uppercase tracking-[0.2em] inline-block bg-slate-50 px-4 py-1.5 rounded-xl border border-slate-100 shadow-inner">Choose your launchpad</span>
                     </p>
                 </div>
 

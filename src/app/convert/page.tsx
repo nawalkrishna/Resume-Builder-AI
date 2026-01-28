@@ -172,23 +172,28 @@ export default function ConvertPage() {
     return (
         <main className="h-screen flex flex-col bg-white overflow-hidden font-outfit">
             {/* Header - SaaS Style */}
-            <nav className="fixed w-full z-50 top-0 left-0 border-b border-slate-200/60 bg-white/80 backdrop-blur-xl transition-all">
-                <div className="max-w-[1800px] mx-auto px-6 h-[72px] flex items-center justify-between">
+            <nav className="fixed w-full z-50 top-0 left-0 border-b border-slate-200/60 bg-white/90 backdrop-blur-xl transition-all">
+                <div className="max-w-[1800px] mx-auto px-6 h-[76px] flex items-center justify-between">
                     <div className="flex items-center gap-6">
                         <Link href="/" className="hover:opacity-80 transition-opacity">
                             <Logo />
                         </Link>
                         <div className="h-6 w-px bg-slate-200" />
-                        <span className="text-sm font-bold text-primary tracking-wide">JSON EDITOR</span>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest leading-none mb-1">Product</span>
+                            <span className="text-sm font-black text-slate-900 tracking-tight">JSON EDITOR ARC</span>
+                        </div>
                     </div>
 
                     <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 focus-within:ring-2 focus-within:ring-primary/20 transition-all">
-                            <span className="text-[10px] font-black text-slate-400">TEMPLATE</span>
+                        <div className="flex items-center gap-3 bg-slate-50 border border-slate-200 rounded-2xl px-4 py-2 focus-within:ring-4 focus-within:ring-primary/10 transition-all group">
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Active Template</span>
+                            <div className="w-px h-4 bg-slate-200" />
                             <select
                                 value={selectedTemplate}
                                 onChange={(e) => setSelectedTemplate(e.target.value)}
-                                className="bg-transparent text-sm font-bold text-slate-700 focus:outline-none cursor-pointer"
+                                className="bg-transparent text-sm font-black text-slate-900 focus:outline-none cursor-pointer appearance-none pr-6 relative"
+                                style={{ backgroundImage: 'url("data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' fill=\'none\' viewBox=\'0 0 20 20\'%3e%3cpath stroke=\'%2364748b\' stroke-linecap=\'round\' stroke-linejoin=\'round\' stroke-width=\'1.5\' d=\'M6 8l4 4 4-4\'/%3e%3c/svg%3e")', backgroundPosition: 'right center', backgroundRepeat: 'no-repeat', backgroundSize: '1.5em 1.5em' }}
                             >
                                 {templateList.map((t) => (
                                     <option key={t.id} value={t.id}>{t.name}</option>
@@ -196,19 +201,22 @@ export default function ConvertPage() {
                             </select>
                         </div>
 
-                        <div className="h-6 w-px bg-slate-200 mx-2" />
+                        <div className="h-8 w-px bg-slate-200 mx-2" />
 
-                        <Button variant="outline" size="sm" onClick={handleLoadSample} className="h-10 font-bold rounded-xl px-5 border-slate-200 hover:bg-slate-50 transition-all">
-                            Load Sample
-                        </Button>
-                        <Button variant="outline" size="sm" onClick={handleCopyJSON} className="h-10 font-bold rounded-xl px-5 border-slate-200 hover:bg-slate-50 transition-all">
-                            {copied ? "✓ Copied" : "Copy JSON"}
-                        </Button>
-                        <Button variant="outline" size="sm" onClick={handleDownloadJSON} className="h-10 font-bold rounded-xl px-5 border-slate-200 hover:bg-slate-50 transition-all">
-                            Download JSON
-                        </Button>
-                        <Button onClick={handleImportToBuilder} className="h-10 font-bold rounded-xl px-6 bg-primary hover:bg-primary-dark shadow-lg shadow-sky-100 transition-all">
-                            Preview & Download →
+                        <div className="flex items-center gap-2 bg-slate-50 p-1 rounded-2xl border border-slate-200/60">
+                            <Button variant="ghost" size="sm" onClick={handleLoadSample} title="Reset to Sample" className="h-10 w-10 p-0 rounded-xl hover:bg-white hover:shadow-sm transition-all text-slate-500">
+                                ↺
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={handleCopyJSON} title="Copy JSON" className="h-10 w-10 p-0 rounded-xl hover:bg-white hover:shadow-sm transition-all text-slate-500">
+                                {copied ? "✓" : "❐"}
+                            </Button>
+                            <Button variant="ghost" size="sm" onClick={handleDownloadJSON} title="Download File" className="h-10 w-10 p-0 rounded-xl hover:bg-white hover:shadow-sm transition-all text-slate-500">
+                                ⤓
+                            </Button>
+                        </div>
+
+                        <Button onClick={handleImportToBuilder} className="h-11 font-black rounded-2xl px-8 bg-slate-900 text-white hover:bg-slate-800 shadow-xl shadow-slate-200 transition-all hover:-translate-y-0.5 active:translate-y-0 tracking-tight">
+                            Finalize Resume →
                         </Button>
                     </div>
                 </div>
@@ -220,17 +228,17 @@ export default function ConvertPage() {
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="w-1/2 border-r border-slate-200/60 flex flex-col bg-white"
+                    className="w-[45%] border-r border-slate-200/60 flex flex-col bg-[#0f172a]"
                 >
-                    <div className="h-14 px-6 border-b border-slate-100 flex items-center justify-between">
+                    <div className="h-14 px-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
                         <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-widest">
-                                JSON Input
+                            <div className="w-1.5 h-1.5 rounded-full bg-sky-400 shadow-[0_0_10px_rgba(56,189,248,0.5)]" />
+                            <span className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                                SOURCE_CODE.json
                             </span>
                         </div>
                         {error && (
-                            <span className="text-[10px] text-rose-500 font-bold flex items-center gap-1.5 bg-rose-50 px-2.5 py-1 rounded-md border border-rose-100">
+                            <span className="text-[10px] text-rose-400 font-bold flex items-center gap-1.5 bg-rose-500/10 px-2.5 py-1 rounded-lg border border-rose-500/20">
                                 ⚠ {error}
                             </span>
                         )}
@@ -238,44 +246,68 @@ export default function ConvertPage() {
                     <textarea
                         value={jsonInput}
                         onChange={(e) => setJsonInput(e.target.value)}
-                        className="flex-1 p-8 font-mono text-[13px] resize-none focus:outline-none bg-[#0f172a] text-[#38bdf8] selection:bg-primary/30 leading-relaxed scrollbar-thin scrollbar-thumb-slate-700"
+                        className="flex-1 p-10 font-mono text-[13px] resize-none focus:outline-none bg-transparent text-sky-400/90 selection:bg-sky-500/20 leading-[1.8] scrollbar-thin scrollbar-thumb-slate-800 scrollbar-track-transparent transistion-colors"
                         placeholder="Paste your resume JSON here..."
                         spellCheck={false}
                     />
+                    <div className="h-8 px-6 border-t border-white/5 flex items-center justify-between bg-white/[0.01]">
+                        <div className="flex items-center gap-4 text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                            <span>UTF-8</span>
+                            <span>JSON</span>
+                        </div>
+                        <div className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                            Ready
+                        </div>
+                    </div>
                 </motion.div>
 
                 {/* Right Panel - Live Preview */}
                 <motion.div
                     initial={{ opacity: 0, x: 20 }}
                     animate={{ opacity: 1, x: 0 }}
-                    className="w-1/2 flex flex-col bg-slate-50/50"
+                    className="flex-1 flex flex-col bg-slate-50 relative overflow-hidden"
                 >
-                    <div className="h-14 px-6 border-b border-slate-100 flex items-center justify-between bg-white">
+                    {/* Background Grid Decoration */}
+                    <div className="absolute inset-0 z-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-40" />
+                    <div className="absolute inset-0 z-0 bg-white/40" />
+
+                    <div className="h-14 px-8 border-b border-slate-200/60 flex items-center justify-between bg-white/80 backdrop-blur-md relative z-10">
                         <div className="flex items-center gap-3">
-                            <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                            <span className="text-[11px] font-black text-slate-800 uppercase tracking-widest">
-                                Live Preview
+                            <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.3)]" />
+                            <span className="text-[10px] font-black text-slate-900 uppercase tracking-[0.2em]">
+                                Live_Preview.pdf
                             </span>
                         </div>
-                        <div className="text-[10px] text-slate-400 font-bold uppercase tracking-tighter bg-slate-50 px-3 py-1 rounded-md border border-slate-200/50">
-                            Render Engine: <span className="text-primary">{selectedTemplate}</span>
+                        <div className="flex items-center gap-4">
+                            <div className="text-[10px] text-slate-400 font-black uppercase tracking-widest flex items-center gap-2">
+                                <div className="w-1.5 h-1.5 rounded-full bg-slate-200" />
+                                60 FPS
+                            </div>
+                            <div className="h-4 w-px bg-slate-200" />
+                            <div className="text-[10px] text-slate-500 font-black uppercase tracking-widest bg-slate-100 px-3 py-1.5 rounded-xl border border-slate-200/50 flex items-center gap-2">
+                                Layout: <span className="text-primary">{selectedTemplate}</span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className="flex-1 overflow-auto p-12 flex justify-center bg-[radial-gradient(#e5e7eb_1px,transparent_1px)] [background-size:24px_24px]">
+                    <div className="flex-1 overflow-auto p-16 flex justify-center relative z-10 scrollbar-thin scrollbar-thumb-slate-200 scrollbar-track-transparent">
                         {error ? (
-                            <div className="text-center text-slate-400 mt-32 max-w-sm">
-                                <div className="text-6xl mb-6 grayscale opacity-20">⚠️</div>
-                                <h3 className="text-lg font-black text-slate-800 mb-2">Invalid JSON Protocol</h3>
-                                <p className="text-sm font-medium leading-relaxed">Fix the syntax errors in the editor to re-establish the live preview stream.</p>
+                            <div className="text-center text-slate-400 mt-40 max-w-sm">
+                                <div className="text-7xl mb-8 grayscale opacity-20 drop-shadow-2xl">⚡</div>
+                                <h3 className="text-xl font-black text-slate-900 mb-2 uppercase tracking-tight">Sync Interrupted</h3>
+                                <p className="text-sm font-medium text-slate-500 leading-relaxed px-6">Your JSON blueprint has structural flaws. Stabilize the syntax to re-engage the preview.</p>
+                                <Button onClick={handleLoadSample} variant="outline" className="mt-8 rounded-2xl border-slate-200 font-bold hover:bg-white">
+                                    Restore Blueprint
+                                </Button>
                             </div>
                         ) : (
-                            <div className="w-full aspect-[1/1.4142] relative max-w-[794px] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] ring-1 ring-slate-200">
+                            <div className="w-full max-w-[900px]">
                                 <ScaleWrapper targetWidth={794}>
-                                    <div className="w-[794px] min-h-[1123px] bg-white rounded-sm overflow-hidden">
+                                    <div className="bg-white shadow-[0_50px_100px_-20px_rgba(15,23,42,0.15)] ring-1 ring-slate-950/5 rounded-sm overflow-hidden transform-gpu">
                                         <TemplateComponent data={resumeData} />
                                     </div>
                                 </ScaleWrapper>
+                                <div className="h-20" /> {/* Extra space at bottom */}
                             </div>
                         )}
                     </div>

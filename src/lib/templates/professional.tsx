@@ -3,172 +3,156 @@ import { ResumeData } from "@/lib/schemas/resume";
 
 export const ProfessionalTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
     return (
-        <div className="bg-white text-gray-900 w-[794px] mx-auto min-h-[1123px] flex">
+        <div className="bg-white text-slate-800 w-[210mm] mx-auto min-h-[297mm] flex shadow-none print:shadow-none font-sans overflow-hidden">
             {/* Left Sidebar */}
-            <aside className="w-1/3 bg-slate-800 text-white p-6">
-                {/* Photo placeholder */}
-                <div className="w-24 h-24 bg-slate-600 rounded-full mx-auto mb-4 flex items-center justify-center text-3xl font-bold">
+            <aside className="w-[35%] bg-slate-900 text-white p-10 flex flex-col">
+                {/* Photo placeholder / Initials */}
+                <div className="w-28 h-28 bg-slate-800 rounded-2xl mx-auto mb-8 flex items-center justify-center text-4xl font-black shadow-2xl border border-slate-700">
                     {data.header.name.split(" ").map(n => n[0]).join("")}
                 </div>
 
-                {/* Contact */}
-                <div className="mb-6">
-                    <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Contact</h3>
-                    <div className="space-y-2 text-sm">
-                        <p className="flex items-center gap-2">
-                            <span className="text-slate-400">📍</span> {data.header.location}
-                        </p>
-                        <p className="flex items-center gap-2">
-                            <span className="text-slate-400">📞</span> {data.header.phone}
-                        </p>
-                        <p className="flex items-center gap-2 break-all">
-                            <span className="text-slate-400">✉️</span> {data.header.email}
-                        </p>
-                        {data.header.linkedin && (
-                            <p className="flex items-center gap-2">
-                                <span className="text-slate-400">🔗</span> <a href={data.header.linkedin} className="hover:text-primary">LinkedIn</a>
+                <div className="space-y-10">
+                    {/* Contact */}
+                    <section>
+                        <h3 className="text-[9.5pt] font-black uppercase tracking-[0.25em] text-slate-500 mb-5">Connectivity</h3>
+                        <div className="space-y-4 text-[10pt]">
+                            <p className="flex items-start gap-4 text-slate-200">
+                                <span className="text-slate-500 mt-1">📍</span> {data.header.location}
                             </p>
-                        )}
-                        {data.header.github && (
-                            <p className="flex items-center gap-2">
-                                <span className="text-slate-400">💻</span> <a href={data.header.github} className="hover:text-primary">GitHub</a>
+                            <p className="flex items-start gap-4 text-slate-200">
+                                <span className="text-slate-500 mt-1">📞</span> {data.header.phone}
                             </p>
-                        )}
-                        {data.header.leetcode && (
-                            <p className="flex items-center gap-2">
-                                <span className="text-slate-400">⌨️</span> <a href={data.header.leetcode} className="hover:text-primary">LeetCode</a>
+                            <p className="flex items-start gap-4 text-slate-200 break-all leading-snug">
+                                <span className="text-slate-500 mt-1">✉️</span> {data.header.email}
                             </p>
-                        )}
-                        {data.header.portfolio && (
-                            <p className="flex items-center gap-2">
-                                <span className="text-slate-400">🌐</span> <a href={data.header.portfolio} className="hover:text-primary">Portfolio</a>
-                            </p>
-                        )}
-                        {data.header.customLinks?.map((link, i) => (
-                            <p key={i} className="flex items-center gap-2">
-                                <span className="text-slate-400">🖇️</span> <a href={link.url} className="hover:text-primary">{link.name}</a>
-                            </p>
-                        ))}
-                    </div>
-                </div>
+                            {data.header.linkedin && (
+                                <p className="flex items-start gap-4">
+                                    <span className="text-slate-500 mt-1">🔗</span> <a href={data.header.linkedin} className="text-slate-200 hover:text-primary transition-colors">LinkedIn</a>
+                                </p>
+                            )}
+                            {data.header.github && (
+                                <p className="flex items-start gap-4">
+                                    <span className="text-slate-500 mt-1">💻</span> <a href={data.header.github} className="text-slate-200 hover:text-primary transition-colors">GitHub</a>
+                                </p>
+                            )}
+                            {data.header.leetcode && (
+                                <p className="flex items-start gap-4">
+                                    <span className="text-slate-500 mt-1">⌨️</span> <a href={data.header.leetcode} className="text-slate-200 hover:text-primary transition-colors">LeetCode</a>
+                                </p>
+                            )}
+                            {data.header.portfolio && (
+                                <p className="flex items-start gap-4">
+                                    <span className="text-slate-500 mt-1">🌐</span> <a href={data.header.portfolio} className="text-slate-200 hover:text-primary transition-colors">Portfolio</a>
+                                </p>
+                            )}
+                        </div>
+                    </section>
 
-                {/* Skills */}
-                {data.skills.categories && data.skills.categories.some(cat => cat.skills) && (
-                    <div className="mb-6">
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Skills</h3>
-                        <div className="space-y-3">
-                            {(data.skills.categories || []).map((cat, i) => (
-                                cat.skills && (
-                                    <div key={i}>
-                                        <p className="font-semibold text-sm mb-1">{cat.category}</p>
-                                        <p className="text-xs text-slate-300">{cat.skills}</p>
-                                    </div>
-                                )
+                    {/* Education */}
+                    <section>
+                        <h3 className="text-[9.5pt] font-black uppercase tracking-[0.25em] text-slate-500 mb-5">Education</h3>
+                        <div className="space-y-6">
+                            {data.education.map((edu, i) => (
+                                <div key={i} className="group">
+                                    <p className="font-black text-slate-100 text-[10.5pt] leading-tight mb-2 uppercase">{edu.degree}</p>
+                                    <p className="text-[9.5pt] text-slate-400 font-bold mb-1">{edu.institution}</p>
+                                    <p className="text-[8.5pt] text-primary font-black uppercase tracking-widest">{edu.duration}</p>
+                                    {edu.cgpa && <p className="text-[9pt] text-emerald-500 font-black mt-1">GPA: {edu.cgpa}</p>}
+                                </div>
                             ))}
                         </div>
-                    </div>
-                )}
-
-                {/* Certifications */}
-                {data.certifications.length > 0 && (
-                    <div>
-                        <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-3">Certifications</h3>
-                        <ul className="text-sm space-y-1">
-                            {data.certifications.map((cert, i) => (
-                                <li key={i} className="text-slate-200">• {cert}</li>
-                            ))}
-                        </ul>
-                    </div>
-                )}
+                    </section>
+                </div>
             </aside>
 
             {/* Main Content */}
-            <main className="flex-1 p-8">
+            <main className="flex-1 p-[15mm] flex flex-col">
                 {/* Header */}
-                <header className="mb-6 border-b-2 border-slate-800 pb-4">
-                    <h1 className="text-3xl font-bold text-slate-800">{data.header.name}</h1>
-                    <p className="text-lg text-slate-600">Professional Resume</p>
+                <header className="mb-12">
+                    <h1 className="text-5xl font-black text-slate-900 tracking-tight uppercase leading-none mb-3">{data.header.name}</h1>
+                    <div className="flex items-center gap-4">
+                        <div className="h-1 w-20 bg-primary/20 rounded-full" />
+                        <p className="text-xl font-bold text-slate-400 tracking-widest uppercase">Expert Professional</p>
+                    </div>
                 </header>
 
-                {/* Experience */}
-                {data.experience.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
-                            <span className="w-8 h-0.5 bg-slate-800"></span>
-                            Experience
-                        </h2>
-                        {data.experience.map((exp, i) => (
-                            <div key={i} className="mb-4">
-                                <div className="flex justify-between items-baseline">
-                                    <h3 className="font-bold text-slate-800">{exp.role}</h3>
-                                    <span className="text-sm text-slate-500">{exp.duration}</span>
-                                </div>
-                                <p className="text-sm text-slate-600 font-medium">{exp.organization}</p>
-                                <ul className="mt-2 text-sm text-slate-700 space-y-1">
-                                    {exp.bullets.map((bullet, j) => (
-                                        <li key={j}>• {bullet}</li>
-                                    ))}
-                                </ul>
+                <div className="space-y-12">
+                    {/* Experience */}
+                    {data.experience.length > 0 && (
+                        <section>
+                            <h2 className="text-[11pt] font-black uppercase tracking-[0.3em] text-slate-300 mb-8 border-b border-slate-100 pb-3 flex items-center justify-between">
+                                Experience
+                                <span className="text-slate-100 text-[8pt]">Professional Record</span>
+                            </h2>
+                            <div className="space-y-10">
+                                {data.experience.map((exp, i) => (
+                                    <div key={i}>
+                                        <div className="flex justify-between items-baseline mb-2">
+                                            <h3 className="text-[12pt] font-black text-slate-900 tracking-tight uppercase">{exp.role}</h3>
+                                            <span className="text-[9.5pt] font-black text-slate-400 tracking-widest uppercase">{exp.duration}</span>
+                                        </div>
+                                        <p className="text-[10.5pt] text-primary font-black uppercase tracking-wider mb-4">{exp.organization}</p>
+                                        <ul className="space-y-2.5 text-[10.5pt] text-slate-600 font-medium leading-relaxed">
+                                            {exp.bullets.map((bullet, j) => (
+                                                <li key={j} className="flex items-start gap-4">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-slate-200 mt-2" />
+                                                    <span>{bullet}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </section>
-                )}
+                        </section>
+                    )}
 
-                {/* Education */}
-                <section className="mb-6">
-                    <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
-                        <span className="w-8 h-0.5 bg-slate-800"></span>
-                        Education
-                    </h2>
-                    {data.education.map((edu, i) => (
-                        <div key={i} className="mb-2">
-                            <div className="flex justify-between items-baseline">
-                                <h3 className="font-bold text-slate-800">{edu.degree}</h3>
-                                <span className="text-sm text-slate-500">{edu.duration}</span>
+                    {/* Expertise / Skills */}
+                    {data.skills.categories && data.skills.categories.some(cat => cat.skills) && (
+                        <section>
+                            <h2 className="text-[11pt] font-black uppercase tracking-[0.3em] text-slate-300 mb-8 border-b border-slate-100 pb-3">
+                                Expertise
+                            </h2>
+                            <div className="grid grid-cols-2 gap-8">
+                                {(data.skills.categories || []).map((cat, i) => (
+                                    cat.skills && (
+                                        <div key={i}>
+                                            <p className="text-[9.5pt] font-black text-slate-400 uppercase tracking-widest mb-2">{cat.category}</p>
+                                            <p className="text-[10.5pt] text-slate-700 font-bold leading-snug">{cat.skills}</p>
+                                        </div>
+                                    )
+                                ))}
                             </div>
-                            <p className="text-sm text-slate-600">{edu.institution} {edu.cgpa && `• ${edu.cgpa}`}</p>
-                        </div>
-                    ))}
-                </section>
+                        </section>
+                    )}
 
-                {/* Projects */}
-                {data.projects.length > 0 && (
-                    <section className="mb-6">
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
-                            <span className="w-8 h-0.5 bg-slate-800"></span>
-                            Projects
-                        </h2>
-                        {data.projects.map((proj, i) => (
-                            <div key={i} className="mb-3">
-                                <div className="flex justify-between items-baseline">
-                                    <h3 className="font-bold text-slate-800">{proj.name}</h3>
-                                    {proj.link && <a href={proj.link} className="text-xs text-blue-600">View</a>}
-                                </div>
-                                <p className="text-xs text-slate-500 mb-1">{proj.techStack}</p>
-                                <ul className="text-sm text-slate-700 space-y-0.5">
-                                    {proj.bullets.map((bullet, j) => (
-                                        <li key={j}>• {bullet}</li>
-                                    ))}
-                                </ul>
+                    {/* Projects */}
+                    {data.projects.length > 0 && (
+                        <section>
+                            <h2 className="text-[11pt] font-black uppercase tracking-[0.3em] text-slate-300 mb-8 border-b border-slate-100 pb-3">
+                                Case Studies
+                            </h2>
+                            <div className="space-y-8">
+                                {data.projects.map((proj, i) => (
+                                    <div key={i}>
+                                        <div className="flex justify-between items-baseline mb-2">
+                                            <h3 className="text-[12pt] font-black text-slate-900 tracking-tight uppercase">{proj.name}</h3>
+                                            {proj.link && <a href={proj.link} className="text-primary text-[9pt] font-black uppercase border-b-2 border-primary/10 hover:border-primary transition-all">View →</a>}
+                                        </div>
+                                        <p className="text-[10pt] text-slate-400 font-bold uppercase tracking-widest mb-3">{proj.techStack}</p>
+                                        <ul className="space-y-2 text-[10pt] text-slate-600 font-medium">
+                                            {proj.bullets.map((bullet, j) => (
+                                                <li key={j} className="flex items-start gap-3">
+                                                    <span className="text-slate-200 mt-2 text-[6pt]">■</span>
+                                                    <span>{bullet}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </section>
-                )}
-
-                {/* Achievements */}
-                {data.achievements.length > 0 && (
-                    <section>
-                        <h2 className="text-sm font-bold uppercase tracking-widest text-slate-500 mb-3 flex items-center gap-2">
-                            <span className="w-8 h-0.5 bg-slate-800"></span>
-                            Achievements
-                        </h2>
-                        <ul className="text-sm text-slate-700 space-y-1">
-                            {data.achievements.map((ach, i) => (
-                                <li key={i}>• {ach}</li>
-                            ))}
-                        </ul>
-                    </section>
-                )}
+                        </section>
+                    )}
+                </div>
             </main>
         </div>
     );

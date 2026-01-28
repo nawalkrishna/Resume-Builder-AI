@@ -194,19 +194,19 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
     );
 
     return (
-        <div className={`bg-white text-slate-800 w-[794px] min-h-[1123px] mx-auto shadow-sm overflow-hidden flex flex-col ${fontFamily === "serif" ? "font-serif" : fontFamily === "mono" ? "font-mono" : "font-sans"}`}>
+        <div className={`bg-white text-slate-800 w-[210mm] min-h-[297mm] mx-auto shadow-none print:shadow-none overflow-hidden flex flex-col ${fontFamily === "serif" ? "font-serif" : fontFamily === "mono" ? "font-mono" : "font-sans"}`}>
             <Header />
-            <div className={`flex flex-1 ${compact ? "p-6 gap-6" : "p-10 gap-10"}`}>
+            <div className={`flex flex-1 ${compact ? "p-[15mm] gap-10" : "p-[25mm] gap-12"}`}>
                 {layout === "left-sidebar" && (
-                    <aside className="w-1/3 border-r border-slate-100">
+                    <aside className="w-[30%] border-r border-slate-100 pr-10">
                         <SidebarContent />
                     </aside>
                 )}
 
-                <main className={layout === "classic" ? "w-full" : "w-2/3"}>
+                <main className={layout === "classic" ? "w-full" : "w-[65%]"}>
                     <MainContent />
                     {layout === "classic" && (
-                        <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-2 gap-8">
+                        <div className="mt-12 pt-12 border-t border-slate-100 grid grid-cols-2 gap-12">
                             <SidebarContent />
                             {/* Extra content for classic layout if needed */}
                         </div>
@@ -214,7 +214,7 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
                 </main>
 
                 {layout === "right-sidebar" && (
-                    <aside className="w-1/3 border-l border-slate-100 pl-6">
+                    <aside className="w-[30%] border-l border-slate-100 pl-10">
                         <SidebarContent />
                     </aside>
                 )}
