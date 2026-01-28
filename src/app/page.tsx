@@ -63,46 +63,46 @@ export default function LandingPage() {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative px-6 pt-16 md:pt-24 pb-20 overflow-hidden">
+      <section className="relative px-6 pt-4 md:pt-8 pb-6 overflow-hidden">
         {/* Abstract background light */}
         <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-sky-50 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4 opacity-60 pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center relative z-10">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="space-y-5"
           >
-            <div className="space-y-6">
-              <h1 className="text-5xl md:text-7xl font-black text-slate-800 tracking-tight leading-[1.1]">
+            <div className="space-y-2">
+              <h1 className="text-4xl md:text-6xl font-black text-slate-800 tracking-tight leading-tight">
                 Build Your Future <br />
                 <span className="text-primary bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">With Resume.ai</span>
               </h1>
-              <p className="text-xl md:text-2xl text-slate-500 font-medium max-w-xl leading-relaxed">
+              <p className="text-base text-slate-500 font-medium max-w-xl leading-relaxed">
                 Smart resume building for modern professionals. Forge a path to your dream career with AI-optimized content that demands attention.
               </p>
             </div>
 
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row gap-3 pt-1">
               <Button
-                size="lg"
-                className="h-16 px-12 rounded-2xl text-lg font-black bg-primary hover:bg-primary-dark transition-all shadow-xl shadow-sky-100 flex-1 sm:flex-none"
+                size="md"
+                className="h-10 px-6 rounded-xl text-sm font-bold bg-primary hover:bg-primary-dark transition-all shadow-lg shadow-sky-100 flex-1 sm:flex-none"
                 onClick={() => router.push("/templates")}
               >
                 Build My Resume
               </Button>
               <Button
-                size="lg"
+                size="md"
                 variant="outline"
-                className="h-16 px-12 rounded-2xl text-lg font-black border-2 border-primary text-primary hover:bg-primary/5 transition-all flex-1 sm:flex-none"
+                className="h-10 px-6 rounded-xl text-sm font-bold border border-primary text-primary hover:bg-primary/5 transition-all flex-1 sm:flex-none"
                 onClick={() => router.push("/convert")}
               >
                 Data Studio
               </Button>
             </div>
 
-            <div className="flex flex-wrap items-start gap-12 pt-10">
+            <div className="flex flex-wrap items-start gap-10 pt-4">
               <div className="space-y-2">
                 <div className="text-4xl font-black text-accent">48%</div>
                 <div className="text-sm text-slate-500 font-bold uppercase tracking-wider">Higher Hire Rate</div>
@@ -248,20 +248,20 @@ export default function LandingPage() {
       </section>
 
       {/* Trustpilot / Companies Section */}
-      <section className="py-16 border-y border-slate-50 flex flex-wrap justify-center gap-x-16 gap-y-10 items-center opacity-40 grayscale group-hover:grayscale-0 transition-all px-6">
-        {["InnovateX", "Skyline Corp", "Global Insights", "DevSolutions", "Peak Performance", "Vector Digital"].map((name) => (
-          <span key={name} className="text-xl font-black text-slate-400 font-sans italic tracking-widest">{name}</span>
+      <section className="py-8 border-y border-slate-50 flex flex-wrap justify-center gap-x-12 gap-y-6 items-center opacity-40 grayscale group-hover:grayscale-0 transition-all px-6">
+        {["Google", "Microsoft", "Amazon", "Apple", "Uber", "Netflix"].map((name) => (
+          <span key={name} className="text-lg font-black text-slate-400 font-sans italic tracking-widest">{name}</span>
         ))}
       </section>
 
       {/* Features Grid */}
-      <section className="py-24 px-6 bg-white relative">
-        <div className="max-w-7xl mx-auto space-y-20">
-          <div className="text-center space-y-4">
-            <h2 className="text-4xl md:text-6xl font-black text-slate-800 tracking-tight">
+      <section className="py-16 px-6 bg-white relative">
+        <div className="max-w-7xl mx-auto space-y-12">
+          <div className="text-center space-y-3">
+            <h2 className="text-3xl md:text-5xl font-black text-slate-800 tracking-tight">
               Tools to <span className="text-primary">elevate your career</span>
             </h2>
-            <p className="text-xl text-slate-500 font-medium max-w-2xl mx-auto">
+            <p className="text-lg text-slate-500 font-medium max-w-2xl mx-auto">
               Everything you need to craft a professional resume that gets you noticed by top-tier recruiters.
             </p>
           </div>
@@ -291,14 +291,14 @@ export default function LandingPage() {
 
 
       {/* Secondary CTA */}
-      <section className="py-20 px-6 bg-slate-50/30 flex justify-center">
+      <section className="py-12 px-6 bg-slate-50/30 flex justify-center">
         <motion.div
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
-          className="w-full max-w-4xl"
+          className="w-full max-w-3xl"
         >
           <Link href="/templates">
-            <Button size="md" className="w-full h-14 shadow-2xl shadow-sky-100 font-bold px-8 rounded-2xl">
+            <Button size="md" className="w-full h-12 shadow-xl shadow-sky-100 font-bold px-8 rounded-xl text-sm">
               Build My Resume
             </Button>
           </Link>
@@ -306,13 +306,13 @@ export default function LandingPage() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 px-6 border-t border-slate-100">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8 text-slate-400 font-medium text-sm">
-          <Logo className="grayscale opacity-60" />
-          <div className="flex gap-8">
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Contact Us</a>
+      <footer className="py-8 px-6 border-t border-slate-100">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6 text-slate-400 font-medium text-xs">
+          <Logo className="grayscale opacity-60 scale-90" />
+          <div className="flex gap-6">
+            <a href="#" className="hover:text-primary transition-colors">Terms</a>
+            <a href="#" className="hover:text-primary transition-colors">Privacy</a>
+            <a href="#" className="hover:text-primary transition-colors">Contact</a>
           </div>
           <div>© 2026 Resume.ai. All rights reserved.</div>
         </div>
