@@ -5,9 +5,9 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
     return (
         <div className="bg-white text-gray-900 p-[25mm] font-serif w-[210mm] mx-auto min-h-[297mm] shadow-none print:shadow-none flex flex-col gap-10" style={{ fontFamily: "Georgia, serif" }}>
             {/* Header - Academic Style */}
-            <header className="text-center mb-10 border-b-2 border-amber-700 pb-8">
-                <h1 className="text-5xl font-bold text-amber-900 mb-6">{data.header.name}</h1>
-                <div className="mt-4 text-[11.5pt] text-gray-700 flex justify-center flex-wrap gap-x-6 gap-y-2 items-center italic">
+            <header className="text-center mb-6 border-b-2 border-amber-700 pb-4">
+                <h1 className="text-3xl font-bold text-amber-900 mb-4">{data.header.name}</h1>
+                <div className="mt-2 text-[10.5pt] text-gray-700 flex justify-center flex-wrap gap-x-4 gap-y-1 items-center italic">
                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-200" />{data.header.location}</span>
                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-200" />{data.header.phone}</span>
                     <span className="flex items-center gap-2"><div className="w-1.5 h-1.5 rounded-full bg-amber-200" />{data.header.email}</span>
@@ -24,22 +24,22 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
             </header>
 
             {/* Main Content */}
-            <div className="space-y-12">
+            <div className="space-y-6">
                 {/* Education - Prominent for academics */}
                 <section>
-                    <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide flex items-center gap-4">
+                    <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide flex items-center gap-3">
                         EDUCATION
                         <div className="h-px bg-amber-50 flex-1" />
                     </h2>
-                    <div className="space-y-8">
+                    <div className="space-y-4">
                         {data.education.map((edu, i) => (
                             <div key={i} className="group">
-                                <div className="flex justify-between items-baseline mb-2">
-                                    <span className="text-[13pt] font-bold text-slate-900">{edu.degree}</span>
-                                    <span className="text-[11pt] text-slate-400 font-bold italic tracking-tight">{edu.duration}</span>
+                                <div className="flex justify-between items-baseline mb-1">
+                                    <span className="text-[12pt] font-bold text-slate-900">{edu.degree}</span>
+                                    <span className="text-[10pt] text-slate-400 font-bold italic tracking-tight">{edu.duration}</span>
                                 </div>
-                                <div className="text-[12pt] text-amber-800 font-bold mb-2 group-hover:translate-x-1 transition-transform">{edu.institution}</div>
-                                {edu.cgpa && <div className="text-[10pt] text-slate-500 font-bold bg-slate-50 inline-block px-3 py-1 rounded-md border border-slate-100">Cumulative GPA: {edu.cgpa}</div>}
+                                <div className="text-[11pt] text-amber-800 font-bold mb-1 group-hover:translate-x-1 transition-transform">{edu.institution}</div>
+                                {edu.cgpa && <div className="text-[9pt] text-slate-500 font-bold bg-slate-50 inline-block px-2 py-0.5 rounded-md border border-slate-100">Cumulative GPA: {edu.cgpa}</div>}
                             </div>
                         ))}
                     </div>
@@ -48,19 +48,19 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 {/* Experience - Research/Teaching Focus */}
                 {data.experience.length > 0 && (
                     <section>
-                        <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide flex items-center gap-4">
+                        <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide flex items-center gap-3">
                             RESEARCH & PROFESSIONAL EXPERIENCE
                             <div className="h-px bg-amber-50 flex-1" />
                         </h2>
-                        <div className="space-y-10">
+                        <div className="space-y-6">
                             {data.experience.map((exp, i) => (
                                 <div key={i}>
-                                    <div className="flex justify-between items-baseline mb-2">
-                                        <span className="text-[13pt] font-bold text-slate-900">{exp.role}</span>
-                                        <span className="text-[11pt] text-slate-400 font-bold italic tracking-tight">{exp.duration}</span>
+                                    <div className="flex justify-between items-baseline mb-1">
+                                        <span className="text-[11.5pt] font-bold text-slate-900">{exp.role}</span>
+                                        <span className="text-[10pt] text-slate-400 font-bold italic tracking-tight">{exp.duration}</span>
                                     </div>
-                                    <div className="text-[12pt] text-amber-800 font-bold mb-4">{exp.organization}</div>
-                                    <ul className="space-y-3 text-[11pt] text-slate-600 list-none font-medium leading-[1.6]">
+                                    <div className="text-[11pt] text-amber-800 font-bold mb-2">{exp.organization}</div>
+                                    <ul className="space-y-1.5 text-[10pt] text-slate-600 list-none font-medium leading-[1.6]">
                                         {exp.bullets.map((bullet, j) => (
                                             <li key={j} className="flex items-start gap-4">
                                                 <span className="text-amber-200 mt-2 shrink-0">■</span>
@@ -77,19 +77,19 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 {/* Projects - Publications Style */}
                 {data.projects.length > 0 && (
                     <section>
-                        <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide flex items-center gap-4">
+                        <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide flex items-center gap-3">
                             PROJECTS & PUBLICATIONS
                             <div className="h-px bg-amber-50 flex-1" />
                         </h2>
-                        <div className="space-y-10">
+                        <div className="space-y-6">
                             {data.projects.map((proj, i) => (
                                 <div key={i}>
-                                    <div className="flex justify-between items-baseline mb-2">
-                                        <span className="text-[13pt] font-bold text-slate-900">{proj.name}</span>
-                                        {proj.link && <a href={proj.link} className="text-[11pt] font-bold text-amber-700 hover:text-amber-900 transition-colors decoration-dotted underline underline-offset-4">Reference →</a>}
+                                    <div className="flex justify-between items-baseline mb-1">
+                                        <span className="text-[11.5pt] font-bold text-slate-900">{proj.name}</span>
+                                        {proj.link && <a href={proj.link} className="text-[10pt] font-bold text-amber-700 hover:text-amber-900 transition-colors decoration-dotted underline underline-offset-4">Reference →</a>}
                                     </div>
-                                    <div className="text-[11pt] text-amber-800 font-bold italic mb-4 opacity-75">{proj.techStack}</div>
-                                    <ul className="space-y-3 text-[11pt] text-slate-600 list-none font-medium leading-[1.6]">
+                                    <div className="text-[10pt] text-amber-800 font-bold italic mb-2 opacity-75">{proj.techStack}</div>
+                                    <ul className="space-y-1.5 text-[10pt] text-slate-600 list-none font-medium leading-[1.6]">
                                         {proj.bullets.map((bullet, j) => (
                                             <li key={j} className="flex items-start gap-4">
                                                 <span className="text-amber-200 mt-2 shrink-0">■</span>
@@ -106,11 +106,11 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 {/* Skills */}
                 {data.skills.categories && data.skills.categories.some(cat => cat.skills) && (
                     <section>
-                        <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide flex items-center gap-4">
+                        <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide flex items-center gap-3">
                             TECHNICAL PROFICIENCIES
                             <div className="h-px bg-amber-50 flex-1" />
                         </h2>
-                        <div className="grid grid-cols-2 gap-x-12 gap-y-6">
+                        <div className="grid grid-cols-2 gap-x-8 gap-y-4">
                             {(data.skills.categories || []).map((cat, i) => (
                                 cat.skills && (
                                     <p key={i} className="text-[11pt] group">
@@ -124,11 +124,11 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 )}
 
                 {/* Awards & Honors */}
-                <div className="grid grid-cols-2 gap-12">
+                <div className="grid grid-cols-2 gap-8">
                     {data.achievements.length > 0 && (
                         <section>
-                            <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide">AWARDS & HONORS</h2>
-                            <ul className="space-y-3 text-[11pt] text-slate-600 list-none font-medium leading-[1.6]">
+                            <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide">AWARDS & HONORS</h2>
+                            <ul className="space-y-1.5 text-[10.5pt] text-slate-600 list-none font-medium leading-[1.6]">
                                 {data.achievements.map((ach, i) => (
                                     <li key={i} className="flex items-start gap-4 italic group">
                                         <span className="text-amber-500 shrink-0 group-hover:scale-125 transition-transform">★</span>
@@ -141,8 +141,8 @@ export const AcademicTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
 
                     {data.certifications.length > 0 && (
                         <section>
-                            <h2 className="text-[14pt] font-black text-amber-900 border-b-2 border-amber-100 pb-2 mb-6 tracking-wide">CERTIFICATIONS</h2>
-                            <ul className="space-y-3 text-[11pt] text-slate-600 list-none font-medium leading-[1.6]">
+                            <h2 className="text-[12pt] font-black text-amber-900 border-b-2 border-amber-100 pb-1 mb-4 tracking-wide">CERTIFICATIONS</h2>
+                            <ul className="space-y-1.5 text-[10.5pt] text-slate-600 list-none font-medium leading-[1.6]">
                                 {data.certifications.map((cert, i) => (
                                     <li key={i} className="flex items-start gap-4 group">
                                         <span className="text-amber-500 shrink-0 group-hover:rotate-12 transition-transform">✓</span>

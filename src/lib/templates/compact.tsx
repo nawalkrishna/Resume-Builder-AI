@@ -121,6 +121,21 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                             </ul>
                         </section>
                     )}
+
+                    {/* Certifications */}
+                    {data.certifications.length > 0 && (
+                        <section>
+                            <h2 className="text-[10pt] font-black uppercase tracking-[0.2em] text-slate-400 mb-3">Certifications</h2>
+                            <ul className="space-y-2">
+                                {data.certifications.map((cert, i) => (
+                                    <li key={i} className="text-[9.5pt] text-slate-600 leading-snug flex gap-2">
+                                        <span className="text-slate-300 font-black">•</span>
+                                        {cert}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    )}
                 </div>
             </div>
         </div>

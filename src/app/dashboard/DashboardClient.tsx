@@ -154,7 +154,7 @@ export default function DashboardClient({ user, resumes: initialResumes, downloa
                         </Link>
                         <Link href="/templates">
                             <Button size="md" className="h-14 bg-slate-900 text-white hover:bg-slate-800 shadow-2xl shadow-slate-200 font-black px-10 rounded-[1.5rem] transition-all hover:-translate-y-1">
-                                + NEW PROTOCOL
+                                + NEW RESUME
                             </Button>
                         </Link>
                     </div>

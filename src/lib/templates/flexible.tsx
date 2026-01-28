@@ -40,9 +40,9 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
     const Header = () => {
         if (headerStyle === "banner") {
             return (
-                <header className={`${c.banner} text-white px-10 py-10 shadow-sm`}>
-                    <h1 className="text-4xl font-black uppercase tracking-tight mb-2">{data.header.name}</h1>
-                    <div className="flex flex-wrap gap-4 text-white/80 text-sm font-medium">
+                <header className={`${c.banner} text-white px-10 py-6 shadow-sm`}>
+                    <h1 className="text-3xl font-black uppercase tracking-tight mb-2">{data.header.name}</h1>
+                    <div className="flex flex-wrap gap-4 text-white/80 text-xs font-medium">
                         <span>{data.header.location}</span>
                         <span>{data.header.phone}</span>
                         <span>{data.header.email}</span>
@@ -52,12 +52,12 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
         }
         if (headerStyle === "modern") {
             return (
-                <header className={`px-10 pt-10 pb-6 flex justify-between items-end border-b-2 ${color === 'slate' ? 'border-slate-900' : c.border.replace('border-', 'border-')}`}>
+                <header className={`px-10 pt-6 pb-4 flex justify-between items-end border-b-2 ${color === 'slate' ? 'border-slate-900' : c.border.replace('border-', 'border-')}`}>
                     <div>
-                        <h1 className="text-5xl font-black uppercase tracking-tighter leading-none">{data.header.name.split(' ')[0]}</h1>
-                        <h1 className={`text-5xl font-light uppercase tracking-tighter leading-none ${c.accent}`}>{data.header.name.split(' ').slice(1).join(' ')}</h1>
+                        <h1 className="text-3xl font-black uppercase tracking-tighter leading-none">{data.header.name.split(' ')[0]}</h1>
+                        <h1 className={`text-3xl font-light uppercase tracking-tighter leading-none ${c.accent}`}>{data.header.name.split(' ').slice(1).join(' ')}</h1>
                     </div>
-                    <div className="text-right text-xs font-bold uppercase tracking-widest text-slate-400 space-y-1">
+                    <div className="text-right text-[10px] font-bold uppercase tracking-widest text-slate-400 space-y-0.5">
                         <div>{data.header.location}</div>
                         <div>{data.header.email}</div>
                         <div>{data.header.phone}</div>
@@ -67,9 +67,9 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
         }
         if (headerStyle === "centered") {
             return (
-                <header className="px-10 py-10 text-center space-y-4">
-                    <h1 className={`text-3xl font-serif font-bold ${c.primary}`}>{data.header.name}</h1>
-                    <div className="flex justify-center flex-wrap gap-4 text-xs uppercase tracking-widest text-slate-500">
+                <header className="px-10 py-6 text-center space-y-2">
+                    <h1 className={`text-2xl font-serif font-bold ${c.primary}`}>{data.header.name}</h1>
+                    <div className="flex justify-center flex-wrap gap-x-4 gap-y-1 text-[10px] uppercase tracking-widest text-slate-500">
                         <span>{data.header.location}</span>
                         <span>&bull;</span>
                         <span>{data.header.email}</span>
@@ -81,9 +81,9 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
         }
         // Simple
         return (
-            <header className="px-10 pt-10 pb-6 border-b border-slate-100">
-                <h1 className={`text-4xl font-bold tracking-tight ${c.primary}`}>{data.header.name}</h1>
-                <div className={`mt-2 flex flex-wrap gap-4 text-sm ${c.accent}`}>
+            <header className="px-10 pt-6 pb-4 border-b border-slate-100">
+                <h1 className={`text-3xl font-bold tracking-tight ${c.primary}`}>{data.header.name}</h1>
+                <div className={`mt-1.5 flex flex-wrap gap-4 text-xs ${c.accent}`}>
                     <span>{data.header.location}</span>
                     <span>{data.header.email}</span>
                     <span>{data.header.phone}</span>
@@ -94,11 +94,11 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
 
     // Helper: Section Title
     const SectionTitle = ({ children }: { children: React.ReactNode }) => {
-        const base = "uppercase tracking-widest mb-4 font-black";
-        if (sectionStyle === "underline") return <h2 className={`text-xs ${base} ${c.primary} border-b ${c.border} pb-2`}>{children}</h2>;
-        if (sectionStyle === "side-border") return <h2 className={`text-xs ${base} ${c.primary} border-l-4 ${c.border.replace('border-', 'border-l-')} pl-3`}>{children}</h2>;
-        if (sectionStyle === "block") return <h2 className={`text-xs ${base} text-white ${c.banner} p-2 pl-3 rounded-sm`}>{children}</h2>;
-        return <h2 className={`text-sm ${base} ${c.primary}`}>{children}</h2>;
+        const base = "uppercase tracking-widest mb-3 font-black";
+        if (sectionStyle === "underline") return <h2 className={`text-[10px] ${base} ${c.primary} border-b ${c.border} pb-1.5`}>{children}</h2>;
+        if (sectionStyle === "side-border") return <h2 className={`text-[10px] ${base} ${c.primary} border-l-4 ${c.border.replace('border-', 'border-l-')} pl-3`}>{children}</h2>;
+        if (sectionStyle === "block") return <h2 className={`text-[10px] ${base} text-white ${c.banner} p-1.5 pl-3 rounded-sm`}>{children}</h2>;
+        return <h2 className={`text-xs ${base} ${c.primary}`}>{children}</h2>;
     };
 
     // Helper: Skills
@@ -136,20 +136,39 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
 
     // Layout Logic
     const MainContent = () => (
-        <div className="space-y-8">
+        <div className="space-y-6">
             {data.experience.length > 0 && (
                 <section>
                     <SectionTitle>Experience</SectionTitle>
-                    <div className="space-y-6">
+                    <div className="space-y-4">
                         {data.experience.map((exp, i) => (
                             <div key={i}>
-                                <div className="flex justify-between items-baseline mb-1">
-                                    <h3 className="font-bold text-slate-900 text-sm">{exp.role}</h3>
-                                    <span className={`text-[10px] font-bold uppercase ${c.accent}`}>{exp.duration}</span>
+                                <div className="flex justify-between items-baseline mb-0.5">
+                                    <h3 className="font-bold text-slate-900 text-[13px]">{exp.role}</h3>
+                                    <span className={`text-[9px] font-bold uppercase ${c.accent}`}>{exp.duration}</span>
                                 </div>
-                                <div className={`text-xs font-bold uppercase tracking-wide mb-2 ${c.primary}`}>{exp.organization}</div>
-                                <ul className={`list-disc list-outside ml-3 space-y-1 text-slate-600 text-xs leading-relaxed marker:${c.accent.replace('text-', 'text-')}`}>
+                                <div className={`text-[11px] font-bold uppercase tracking-wide mb-1.5 ${c.primary}`}>{exp.organization}</div>
+                                <ul className={`list-disc list-outside ml-3 space-y-0.5 text-slate-600 text-[11px] leading-relaxed marker:${c.accent.replace('text-', 'text-')}`}>
                                     {exp.bullets.map((bullet, j) => <li key={j}>{bullet}</li>)}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+                </section>
+            )}
+
+            {data.projects.length > 0 && (
+                <section>
+                    <SectionTitle>Projects</SectionTitle>
+                    <div className="space-y-4">
+                        {data.projects.map((proj, i) => (
+                            <div key={i}>
+                                <div className="flex justify-between items-baseline mb-0.5">
+                                    <h3 className="font-bold text-slate-900 text-[13px]">{proj.name}</h3>
+                                    <span className={`text-[9px] font-bold uppercase ${c.accent}`}>{proj.techStack}</span>
+                                </div>
+                                <ul className={`list-disc list-outside ml-3 space-y-0.5 text-slate-600 text-[11px] leading-relaxed marker:${c.accent.replace('text-', 'text-')}`}>
+                                    {proj.bullets.map((bullet, j) => <li key={j}>{bullet}</li>)}
                                 </ul>
                             </div>
                         ))}
@@ -171,11 +190,22 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
                     ))}
                 </div>
             </section>
+
+            {data.achievements.length > 0 && (
+                <section>
+                    <SectionTitle>Achievements</SectionTitle>
+                    <ul className={`list-disc list-outside ml-3 space-y-0.5 text-slate-600 text-[11px] leading-relaxed marker:${c.accent.replace('text-', 'text-')}`}>
+                        {data.achievements.map((ach, i) => (
+                            <li key={i}>{ach}</li>
+                        ))}
+                    </ul>
+                </section>
+            )}
         </div>
     );
 
     const SidebarContent = () => (
-        <div className={`space-y-8 ${layout === "left-sidebar" ? "pr-4" : "pl-4"}`}>
+        <div className={`space-y-6 ${layout === "left-sidebar" ? "pr-4" : "pl-4"}`}>
             <section>
                 <SectionTitle>Skills</SectionTitle>
                 <SkillsContent />
@@ -206,7 +236,7 @@ export const FlexibleTemplate: React.FC<FlexibleTemplateProps> = ({ data, varian
                 <main className={layout === "classic" ? "w-full" : "w-[65%]"}>
                     <MainContent />
                     {layout === "classic" && (
-                        <div className="mt-12 pt-12 border-t border-slate-100 grid grid-cols-2 gap-12">
+                        <div className="mt-8 pt-8 border-t border-slate-100 grid grid-cols-2 gap-8">
                             <SidebarContent />
                             {/* Extra content for classic layout if needed */}
                         </div>
