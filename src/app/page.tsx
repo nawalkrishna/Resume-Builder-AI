@@ -212,6 +212,8 @@ export default function LandingPage() {
                       {[
                         { text: "Strong quantifiable achievements detected", status: "win" },
                         { text: "Optimized for Engineering Management roles", status: "match" },
+                        { text: "Formatting consistent across all sections", status: "win" },
+                        { text: "Contact information validation passed", status: "win" },
                         { text: "Detected 4 missing industry keywords", status: "fix" }
                       ].map((insight, i) => (
                         <div key={i} className="flex items-center gap-3 text-xs font-medium text-slate-600">
