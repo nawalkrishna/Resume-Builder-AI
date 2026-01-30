@@ -152,10 +152,9 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             }
 
             setValidationError(null);
-            console.log("Resume save successful via API");
             return true;
         } catch (error: any) {
-            console.error("Caught error in saveResume:", error);
+            console.error("Error in saveResume:", error);
 
             let errorMessage = "Failed to save resume. Please try again.";
 
