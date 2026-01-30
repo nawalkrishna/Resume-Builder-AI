@@ -74,23 +74,26 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         if (editId && savedData) {
             try {
                 const parsed = JSON.parse(savedData);
+                console.log("Attempting to load data from storage...", parsed);
                 const result = ResumeSchema.safeParse(parsed);
+
                 if (result.success) {
+                    console.log("Storage data validated successfully");
                     setData(result.data);
                     setResumeId(editId);
                     if (savedName) {
                         setResumeName(savedName);
                     }
                     setValidationError(null);
+
+                    // Clear edit mode only if it was successful
+                    localStorage.removeItem("editResumeId");
+                    localStorage.removeItem("resumeData");
+                    localStorage.removeItem("editResumeName");
                 } else {
-                    // Log validation errors for debugging
-                    console.error("Resume validation failed:", result.error.issues);
-                    setValidationError("Invalid resume data format. Please check your data and try again.");
+                    console.error("Resume validation failed for stored data:", result.error.issues);
+                    setValidationError("The saved resume data is in an incompatible format. Please try editing and re-saving.");
                 }
-                // Clear edit mode
-                localStorage.removeItem("editResumeId");
-                localStorage.removeItem("resumeData");
-                localStorage.removeItem("editResumeName");
             } catch (e) {
                 console.error("Failed to parse edit resume data", e);
                 setValidationError("Failed to load resume data. Please try again.");

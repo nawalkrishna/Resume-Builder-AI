@@ -14,7 +14,7 @@ import { ResumePrintLayout } from "@/components/resume/ResumePrintLayout";
 import "@/styles/print.css";
 
 export default function PreviewPage() {
-    const { data, saveResume, resumeName, setResumeName, resumeId, validationError, clearValidationError } = useResume();
+    const { data, saveResume, resumeName, setResumeName, resumeId, validationError, clearValidationError, loadEditFromStorage } = useResume();
     const router = useRouter();
     const [isExporting, setIsExporting] = useState(false);
     const [isSaving, setIsSaving] = useState(false);
@@ -25,6 +25,11 @@ export default function PreviewPage() {
 
     // Validate data before rendering
     const [isDataValid, setIsDataValid] = useState(false);
+
+    useEffect(() => {
+        // Force load from storage when landing on preview
+        loadEditFromStorage();
+    }, [loadEditFromStorage]);
 
     useEffect(() => {
         // Check if we have valid data

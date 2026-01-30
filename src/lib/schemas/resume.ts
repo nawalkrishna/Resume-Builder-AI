@@ -44,9 +44,19 @@ export const SkillCategorySchema = z.object({
   skills: z.string().optional().or(z.literal("")),
 });
 
-export const SkillsSchema = z.object({
-  categories: z.array(SkillCategorySchema).optional(),
-});
+export const SkillsSchema = z.preprocess((val: any) => {
+  if (val && typeof val === 'object' && !val.categories && (val.tools || val.concepts || val.languages || val.frameworks)) {
+    const categories = [];
+    if (val.languages) categories.push({ category: "Languages", skills: val.languages });
+    if (val.frameworks) categories.push({ category: "Frameworks / Libraries", skills: val.frameworks });
+    if (val.tools) categories.push({ category: "Tools / Platforms", skills: val.tools });
+    if (val.concepts) categories.push({ category: "Relevant Concepts", skills: val.concepts });
+    return { categories };
+  }
+  return val;
+}, z.object({
+  categories: z.array(SkillCategorySchema).optional().default([]),
+}));
 
 
 
