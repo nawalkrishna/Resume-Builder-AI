@@ -121,16 +121,25 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
     const saveResume = useCallback(async (customName?: string): Promise<boolean> => {
         try {
-            const { data: { user } } = await supabase.auth.getUser();
+            console.log("Save process initiated...");
+            const { data: authData, error: authError } = await supabase.auth.getUser();
+
+            if (authError) {
+                console.error("Auth retrieval error:", authError);
+                throw authError;
+            }
+
+            const user = authData?.user;
             if (!user) {
+                console.warn("No user session found for save operation");
                 setValidationError("You must be logged in to save your resume.");
                 return false;
             }
 
             const nameToSave = customName || resumeName;
-            const now = new Date().toISOString();
 
             if (resumeId) {
+                console.log(`Updating resume ${resumeId} for user ${user.id}`);
                 // Update existing resume
                 const { error } = await supabase
                     .from("resumes")
@@ -144,6 +153,7 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
 
                 if (error) throw error;
             } else {
+                console.log(`Creating new resume for user ${user.id}`);
                 // Create new resume
                 const { data: newResume, error } = await supabase
                     .from("resumes")
@@ -164,19 +174,20 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
             }
 
             setValidationError(null);
+            console.log("Resume save successful");
             return true;
         } catch (error: any) {
-            console.error("Full save error object:", error);
+            // Log the error with all its properties (useful for Error objects)
+            const serializedError = JSON.parse(JSON.stringify(error, Object.getOwnPropertyNames(error)));
+            console.error("Detailed save error context:", serializedError);
 
             let errorMessage = "Failed to save resume. Please try again.";
 
             if (error?.message) {
                 errorMessage = error.message;
-                console.error("Save error message:", error.message);
+            } else if (typeof error === 'string') {
+                errorMessage = error;
             }
-            if (error?.details) console.error("Save error details:", error.details);
-            if (error?.hint) console.error("Save error hint:", error.hint);
-            if (error?.code) console.error("Save error code:", error.code);
 
             setValidationError(errorMessage);
             return false;
