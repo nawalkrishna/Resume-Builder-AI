@@ -105,11 +105,15 @@ export default function PreviewPage() {
     const handleSave = async () => {
         setIsSaving(true);
         setResumeName(tempName);
-        await saveResume(tempName);
+        const success = await saveResume(tempName);
         setIsSaving(false);
-        setShowSaveModal(false);
-        setSaveSuccess(true);
-        setTimeout(() => setSaveSuccess(false), 3000);
+
+        if (success) {
+            setShowSaveModal(false);
+            setSaveSuccess(true);
+            router.refresh(); // Refresh to sync dashboard data
+            setTimeout(() => setSaveSuccess(false), 3000);
+        }
     };
 
     return (

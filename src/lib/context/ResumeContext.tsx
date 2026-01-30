@@ -13,7 +13,7 @@ interface ResumeContextType {
     updateData: (newData: Partial<ResumeData>) => void;
     setFullData: (newData: ResumeData) => void;
     resetData: () => void;
-    saveResume: (customName?: string) => Promise<void>;
+    saveResume: (customName?: string) => Promise<boolean>;
     loadResume: (id: string) => Promise<void>;
     setResumeName: (name: string) => void;
     loadEditFromStorage: () => void;
@@ -119,34 +119,57 @@ export const ResumeProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         setResumeName("My Resume");
     };
 
-    const saveResume = useCallback(async (customName?: string) => {
-        const { data: { user } } = await supabase.auth.getUser();
-        if (!user) return;
-
-        const nameToSave = customName || resumeName;
-
-        if (resumeId) {
-            // Update existing resume
-            await supabase
-                .from("resumes")
-                .update({ name: nameToSave, data })
-                .eq("id", resumeId)
-                .eq("user_id", user.id);
-        } else {
-            // Create new resume
-            const { data: newResume } = await supabase
-                .from("resumes")
-                .insert({
-                    user_id: user.id,
-                    name: nameToSave,
-                    data,
-                })
-                .select()
-                .single();
-
-            if (newResume) {
-                setResumeId(newResume.id);
+    const saveResume = useCallback(async (customName?: string): Promise<boolean> => {
+        try {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (!user) {
+                setValidationError("You must be logged in to save your resume.");
+                return false;
             }
+
+            const nameToSave = customName || resumeName;
+            const now = new Date().toISOString();
+
+            if (resumeId) {
+                // Update existing resume
+                const { error } = await supabase
+                    .from("resumes")
+                    .update({
+                        name: nameToSave,
+                        data,
+                        updated_at: now
+                    })
+                    .eq("id", resumeId)
+                    .eq("user_id", user.id);
+
+                if (error) throw error;
+            } else {
+                // Create new resume
+                const { data: newResume, error } = await supabase
+                    .from("resumes")
+                    .insert({
+                        user_id: user.id,
+                        name: nameToSave,
+                        data,
+                        created_at: now,
+                        updated_at: now
+                    })
+                    .select()
+                    .single();
+
+                if (error) throw error;
+
+                if (newResume) {
+                    setResumeId(newResume.id);
+                }
+            }
+
+            setValidationError(null);
+            return true;
+        } catch (error: any) {
+            console.error("Error saving resume:", error);
+            setValidationError(error.message || "Failed to save resume. Please try again.");
+            return false;
         }
     }, [supabase, resumeId, resumeName, data]);
 
