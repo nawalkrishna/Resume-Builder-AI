@@ -264,6 +264,10 @@
     width: 72% !important;
 }
 
+.resume-container .w-12 {
+    width: 3rem !important;
+}
+
 .resume-container .max-w-2xl {
     max-width: 42rem !important;
 }
@@ -342,6 +346,10 @@
 
 .resume-container .gap-y-2 {
     row-gap: 0.5rem !important;
+}
+
+.resume-container .gap-y-4 {
+    row-gap: 1rem !important;
 }
 
 .resume-container .space-y-0\.5>*+* {
@@ -612,6 +620,18 @@
 
 .resume-container .tracking-\[0\.4em\] {
     letter-spacing: 0.4em !important;
+}
+
+.resume-container .pt-6 {
+    padding-top: 1.5rem !important;
+}
+
+.resume-container .pb-6 {
+    padding-bottom: 1.5rem !important;
+}
+
+.resume-container .mt-6 {
+    margin-top: 1.5rem !important;
 }
 
 .resume-container .leading-none {
