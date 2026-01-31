@@ -29,9 +29,9 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 </div>
             </header>
 
-            <div className="flex gap-x-8 flex-1">
+            <div className="flex justify-between flex-1">
                 {/* Unified High-Density Content Column (approx 72% width) */}
-                <div className="w-[72%] space-y-4">
+                <div className="w-[72%] mr-[4%] space-y-4">
                     {/* 1. Experience */}
                     {data.experience.length > 0 && (
                         <section>
@@ -121,9 +121,9 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     {data.achievements.length > 0 && (
                         <section>
                             <h2 className="text-[9pt] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-1 mb-2">Honors</h2>
-                            <div className="space-y-1.5">
+                            <div className="space-y-1.5 list-none p-0 m-0">
                                 {data.achievements.map((ach, i) => (
-                                    <div key={i} className="text-[9pt] text-slate-600 leading-snug font-medium italic">
+                                    <div key={i} className="sidebar-item text-[9pt] text-slate-600 leading-snug font-medium italic">
                                         {ach}
                                     </div>
                                 ))}
@@ -135,9 +135,9 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     {data.certifications.length > 0 && (
                         <section>
                             <h2 className="text-[9pt] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-1 mb-2">Certification</h2>
-                            <div className="space-y-1.5 text-[9pt] text-slate-600 font-medium leading-tight">
+                            <div className="space-y-1.5 text-[9pt] text-slate-600 font-medium leading-tight list-none p-0 m-0">
                                 {data.certifications.map((cert, i) => (
-                                    <div key={i}>{cert}</div>
+                                    <div key={i} className="sidebar-item">{cert}</div>
                                 ))}
                             </div>
                         </section>

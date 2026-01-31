@@ -1398,9 +1398,34 @@
 }
 
 .resume-container .list-none {
+    list-style: none !important;
     list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+/* sidebar-item needs absolute bullet suppression */
+.resume-container .sidebar-item {
+    display: block !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    background-image: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.resume-container .sidebar-item::marker,
+.resume-container .sidebar-item ::marker,
+.resume-container .sidebar-item::before,
+.resume-container .sidebar-item ::before {
+    display: none !important;
+    content: none !important;
 }
 
 .resume-container .tracking-\[0\.2em\] {
     letter-spacing: 0.2em !important;
+}
+
+.resume-container .mr-\[4\%\] {
+    margin-right: 4% !important;
 }
