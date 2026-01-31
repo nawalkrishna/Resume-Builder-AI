@@ -121,9 +121,9 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     {data.achievements.length > 0 && (
                         <section>
                             <h2 className="text-[9pt] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-1 mb-3">Honors</h2>
-                            <ul className="space-y-2 list-none">
+                            <ul className="space-y-2 list-none p-0 m-0">
                                 {data.achievements.map((ach, i) => (
-                                    <li key={i} className="text-[9pt] text-slate-600 leading-snug font-medium italic border-l border-slate-100 pl-3">
+                                    <li key={i} className="text-[9pt] text-slate-600 leading-snug font-medium italic">
                                         {ach}
                                     </li>
                                 ))}
@@ -135,7 +135,7 @@ export const CompactTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                     {data.certifications.length > 0 && (
                         <section>
                             <h2 className="text-[9pt] font-black uppercase tracking-[0.2em] text-slate-400 border-b border-slate-100 pb-1 mb-3">Certification</h2>
-                            <ul className="space-y-2 text-[9pt] text-slate-600 font-medium border-l border-slate-100 pl-3 leading-tight list-none">
+                            <ul className="space-y-2 text-[9pt] text-slate-600 font-medium leading-tight list-none p-0 m-0">
                                 {data.certifications.map((cert, i) => (
                                     <li key={i}>{cert}</li>
                                 ))}
