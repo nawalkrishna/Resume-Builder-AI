@@ -38,14 +38,20 @@ export async function POST(req: NextRequest) {
 
         const { type, content, context } = validation.data;
 
-        // Check for API key
-        if (!process.env.OPENAI_API_KEY) {
-            console.error("CRITICAL: OpenAI API key not configured");
+        // Check for API key (Prefer OpenRouter, fallback to OpenAI for compatibility if needed)
+        const apiKey = process.env.OPENROUTER_API_KEY || process.env.OPENAI_API_KEY;
+        if (!apiKey) {
+            console.error("CRITICAL: AI API key not configured (OPENROUTER_API_KEY missing)");
             return errorResponse("Service unavailable (configuration missing).", [], 500);
         }
 
         const openai = new OpenAI({
-            apiKey: process.env.OPENAI_API_KEY,
+            apiKey: apiKey,
+            baseURL: "https://openrouter.ai/api/v1",
+            defaultHeaders: {
+                "HTTP-Referer": "https://networkershome.com", // Required for OpenRouter
+                "X-Title": "AI Resume Builder", // Optional for OpenRouter
+            }
         });
 
         let systemPrompt = `You are an expert resume writer specializing in ATS-optimized resumes. Your task is to enhance resume bullet points to be more impactful and ATS-friendly.
@@ -82,7 +88,7 @@ Return ONLY the enhanced achievement, single line.`;
         }
 
         const completion = await openai.chat.completions.create({
-            model: "gpt-4o-mini",
+            model: "mistralai/mistral-7b-instruct:free", // High-quality free model via OpenRouter
             messages: [
                 { role: "system", content: systemPrompt },
                 { role: "user", content: userPrompt },
@@ -102,7 +108,7 @@ Return ONLY the enhanced achievement, single line.`;
                 input_text: JSON.stringify(content),
                 output_text: response,
                 tokens_used: completion.usage?.total_tokens || 0,
-                cost_usd: (completion.usage?.prompt_tokens || 0) * 0.00000015 + (completion.usage?.completion_tokens || 0) * 0.0000006
+                model_used: "mistralai/mistral-7b-instruct:free"
             });
             if (logError) console.error("AI usage logging failed:", logError);
         }).catch(err => console.error("Supabase client creation for logging failed:", err));
