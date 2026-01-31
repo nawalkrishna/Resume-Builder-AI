@@ -3,10 +3,10 @@ import { ResumeData } from "@/lib/schemas/resume";
 
 export const ElegantTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
     return (
-        <div className="bg-white text-slate-800 font-serif leading-snug w-full flex flex-col gap-2 shadow-none print:shadow-none text-[9.5pt] flex-1" style={{ fontFamily: "Merriweather, serif" }}>
+        <div className="bg-white text-slate-800 font-serif leading-snug w-full flex flex-col shadow-none print:shadow-none text-[9.5pt] flex-1" style={{ fontFamily: "Merriweather, serif" }}>
             {/* Header - Truly Elegant & Balanced */}
-            <header className="text-center pt-6 pb-6">
-                <h1 className="text-4xl font-normal text-slate-900 tracking-[0.25em] uppercase leading-none mb-4">{data.header.name}</h1>
+            <header className="text-center pt-10 pb-4">
+                <h1 className="text-3xl font-normal text-slate-900 tracking-[0.25em] uppercase leading-tight mb-4">{data.header.name}</h1>
                 <div className="flex justify-center flex-wrap gap-x-8 gap-y-1 text-[8.5pt] font-medium uppercase tracking-widest text-slate-500 max-w-2xl mx-auto">
                     {data.header.location && <span>{data.header.location}</span>}
                     {data.header.phone && <span className="text-slate-200">|</span>}
@@ -30,8 +30,8 @@ export const ElegantTemplate: React.FC<{ data: ResumeData }> = ({ data }) => {
                 <div className="w-12 h-[1px] bg-slate-900 mt-6 mx-auto opacity-20" />
             </header>
 
-            {/* Main Content - Increased spacing for A4 balance */}
-            <div className="space-y-6 px-10 pb-6">
+            {/* Main Content - Compressed for PDF fit */}
+            <div className="space-y-4 px-10 pb-6">
                 {/* 1. Experience */}
                 {data.experience && data.experience.length > 0 && (
                     <section>
