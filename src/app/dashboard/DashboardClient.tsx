@@ -35,6 +35,7 @@ export default function DashboardClient({ user, resumes: initialResumes }: Dashb
     const [resumes, setResumes] = useState(initialResumes);
     const [deletingId, setDeletingId] = useState<string | null>(null);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isImportModalOpen, setIsImportModalOpen] = useState(false);
     const router = useRouter();
     const supabase = createClient();
 
@@ -187,11 +188,7 @@ export default function DashboardClient({ user, resumes: initialResumes }: Dashb
                     <div className="flex flex-wrap items-center gap-4">
                         <div
                             className="cursor-pointer"
-                            onClick={() => {
-                                setTimeout(() => {
-                                    router.push("/convert");
-                                }, 100);
-                            }}
+                            onClick={() => setIsImportModalOpen(true)}
                         >
                             <Button
                                 variant="ghost"
@@ -303,7 +300,10 @@ export default function DashboardClient({ user, resumes: initialResumes }: Dashb
                     )}
                 </section>
             </div >
-
+            <ImportResumeModal
+                isOpen={isImportModalOpen}
+                onClose={() => setIsImportModalOpen(false)}
+            />
         </main >
     );
 }
