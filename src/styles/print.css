@@ -629,6 +629,16 @@
     padding-right: 2.5rem !important;
 }
 
+.resume-container .px-16 {
+    padding-left: 4rem !important;
+    padding-right: 4rem !important;
+}
+
+.resume-container .px-24 {
+    padding-left: 6rem !important;
+    padding-right: 6rem !important;
+}
+
 .resume-container .pl-10 {
     padding-left: 2.5rem !important;
 }
@@ -647,6 +657,16 @@
     padding-bottom: 1rem !important;
 }
 
+.resume-container .py-12 {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+}
+
+.resume-container .py-16 {
+    padding-top: 4rem !important;
+    padding-bottom: 4rem !important;
+}
+
 .resume-container .py-6 {
     padding-top: 1.5rem !important;
     padding-bottom: 1.5rem !important;
@@ -659,6 +679,18 @@
 
 .resume-container .pl-3 {
     padding-left: 0.75rem !important;
+}
+
+.resume-container .mt-1 {
+    margin-top: 0.25rem !important;
+}
+
+.resume-container .mt-2 {
+    margin-top: 0.5rem !important;
+}
+
+.resume-container .mt-1.5 {
+    margin-top: 0.375rem !important;
 }
 
 .resume-container .tracking-\[0\.25em\] {
@@ -695,6 +727,30 @@
 
 .resume-container .mt-6 {
     margin-top: 1.5rem !important;
+}
+
+.resume-container .mb-2 {
+    margin-bottom: 0.5rem !important;
+}
+
+.resume-container .mb-4 {
+    margin-bottom: 1rem !important;
+}
+
+.resume-container .pb-1 {
+    padding-bottom: 0.25rem !important;
+}
+
+.resume-container .pb-3 {
+    padding-bottom: 0.75rem !important;
+}
+
+.resume-container .border-b-2 {
+    border-bottom-width: 2px !important;
+}
+
+.resume-container .border-slate-900 {
+    border-color: #0f172a !important;
 }
 
 .resume-container .leading-none {
@@ -797,7 +853,29 @@
     color: #059669 !important;
 }
 
-.resume-container .text-emerald-900 {
+.resume-container .bg-emerald-900 {
+    background-color: #064e3b !important;
+}
+
+.resume-container .list-none {
+    list-style-type: none !important;
+}
+
+.resume-container .w-1 {
+    width: 0.25rem !important;
+}
+
+.resume-container .h-1 {
+    height: 0.25rem !important;
+}
+
+.resume-container .rounded-full {
+    border-radius: 9999px !important;
+}
+
+.resume-container .bg-slate-900 {
+    background-color: #0f172a !important;
+}
     color: #064e3b !important;
 }
 
