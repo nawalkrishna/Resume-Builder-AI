@@ -197,7 +197,7 @@ export default function DashboardClient({ user, resumes: initialResumes }: Dashb
                                 variant="ghost"
                                 className="h-14 font-black text-slate-600 hover:bg-white hover:shadow-sm px-8 rounded-[1.5rem] border border-transparent hover:border-slate-200 transition-all flex items-center gap-3"
                             >
-                                <span>🔄</span> JSON CONVERTER
+                                <span>📤</span> IMPORT EXISTING RESUME
                             </Button>
                         </div>
                         <div
