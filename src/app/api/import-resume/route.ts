@@ -3,10 +3,36 @@ import OpenAI from "openai";
 import { ResumeSchema } from "@/lib/schemas/resume";
 import { createClient } from "@/lib/supabase/server";
 import { isRateLimited, rateLimitResponse } from "@/lib/security/rate-limit";
+// unpdf is designed for serverless environments - no web worker needed
+import { extractText } from "unpdf";
 
 // Strict constraint: PDF only, max 5MB
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const MIN_TEXT_LENGTH = 100; // Lenient for concise resumes
+
+/**
+ * Extract text from PDF buffer using unpdf (serverless-compatible)
+ * unpdf is built specifically for edge/serverless environments
+ */
+async function extractTextFromPDF(buffer: ArrayBuffer): Promise<{ text: string; numPages: number }> {
+    const uint8Array = new Uint8Array(buffer);
+
+    // unpdf's extractText returns { text, totalPages }
+    const result = await extractText(uint8Array, { mergePages: true });
+
+    console.log(`PDF loaded: ${result.totalPages} pages`);
+
+    // Handle both string and array return types from unpdf
+    const extractedText = Array.isArray(result.text)
+        ? result.text.join('\n\n')
+        : String(result.text);
+
+    return {
+        text: extractedText,
+        numPages: result.totalPages,
+    };
+}
+
 
 export async function POST(req: NextRequest) {
     try {
@@ -38,45 +64,27 @@ export async function POST(req: NextRequest) {
             return NextResponse.json({ error: "File size exceeds 5MB limit" }, { status: 400 });
         }
 
-        // 1. Extract raw text using pdfjs-dist
+        // 1. Extract raw text using pdfjs-dist (serverless-compatible, no worker)
         let rawText = "";
         try {
-            const pdfjs = await import("pdfjs-dist");
-
             const arrayBuffer = await file.arrayBuffer();
-            const uint8Array = new Uint8Array(arrayBuffer);
 
-            // Load the PDF document
-            const loadingTask = pdfjs.getDocument({ data: uint8Array });
-            const pdfDocument = await loadingTask.promise;
+            const pdfData = await extractTextFromPDF(arrayBuffer);
 
-            console.log(`PDF loaded: ${pdfDocument.numPages} pages`);
+            console.log(`PDF loaded: ${pdfData.numPages} pages`);
 
             // Security: Limit page count to prevent PDF bombs
             const MAX_PAGES = 20;
-            if (pdfDocument.numPages > MAX_PAGES) {
+            if (pdfData.numPages > MAX_PAGES) {
                 return NextResponse.json({
                     error: `PDF too large. Maximum ${MAX_PAGES} pages allowed.`
                 }, { status: 400 });
             }
 
-            // Extract text from all pages
-            const textPromises: Promise<string>[] = [];
-            for (let i = 1; i <= pdfDocument.numPages; i++) {
-                textPromises.push(
-                    pdfDocument.getPage(i).then(async (page) => {
-                        const textContent = await page.getTextContent();
-                        return textContent.items
-                            .map((item: any) => item.str)
-                            .join(" ");
-                    })
-                );
-            }
-
-            const pageTexts = await Promise.all(textPromises);
-            rawText = pageTexts.join("\n\n");
+            rawText = pdfData.text;
 
             // Log extraction stats (no content)
+            console.log(`PDF text extracted: ${rawText.length} characters`);
         } catch (pdfError: any) {
             console.error("PDF extraction failed:", pdfError);
             return NextResponse.json({

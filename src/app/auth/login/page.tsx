@@ -1,21 +1,26 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, Suspense } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
 import { Logo } from "@/components/ui/Logo";
 
-export default function LoginPage() {
+// Inner component that uses useSearchParams
+function LoginForm() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const router = useRouter();
+    const searchParams = useSearchParams();
     const supabase = createClient();
+
+    // Get redirect URL from query params, default to dashboard
+    const redirectTo = searchParams.get("redirect") || "/dashboard";
 
     const handleEmailLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -32,11 +37,10 @@ export default function LoginPage() {
             setLoading(false);
         } else {
             setTimeout(() => {
-                router.push("/dashboard");
+                router.push(redirectTo);
             }, 100);
         }
     };
-
 
     return (
         <main className="min-h-screen bg-white flex flex-col items-center justify-center px-4 relative overflow-hidden">
@@ -138,5 +142,28 @@ export default function LoginPage() {
                 </div>
             </motion.div>
         </main>
+    );
+}
+
+// Loading fallback for Suspense
+function LoginFallback() {
+    return (
+        <main className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
+            <div className="w-full max-w-md text-center">
+                <div className="animate-pulse">
+                    <div className="h-12 w-48 bg-slate-200 rounded-xl mx-auto mb-8" />
+                    <div className="h-96 bg-slate-100 rounded-[3rem]" />
+                </div>
+            </div>
+        </main>
+    );
+}
+
+// Main export wrapped in Suspense
+export default function LoginPage() {
+    return (
+        <Suspense fallback={<LoginFallback />}>
+            <LoginForm />
+        </Suspense>
     );
 }

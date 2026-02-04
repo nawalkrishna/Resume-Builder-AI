@@ -7,11 +7,44 @@ import { motion } from "framer-motion";
 import { Navbar } from "@/components/ui/Navbar";
 import { Logo } from "@/components/ui/Logo";
 import { ImportResumeModal } from "@/components/dashboard/ImportResumeModal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
 
 export default function LandingPage() {
   const router = useRouter();
   const [isImportModalOpen, setIsImportModalOpen] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [isCheckingAuth, setIsCheckingAuth] = useState(true);
+  const supabase = createClient();
+
+  // Check authentication status on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      setUser(user);
+      setIsCheckingAuth(false);
+    };
+    checkAuth();
+  }, [supabase.auth]);
+
+  // Handler for Build My Resume button
+  const handleBuildResume = () => {
+    if (!user) {
+      router.push("/auth/login?redirect=/templates");
+    } else {
+      router.push("/templates");
+    }
+  };
+
+  // Handler for Import Existing Resume button
+  const handleImportResume = () => {
+    if (!user) {
+      router.push("/auth/login?redirect=/dashboard");
+    } else {
+      setIsImportModalOpen(true);
+    }
+  };
 
   const features = [
     {
@@ -76,11 +109,7 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="h-14 px-10 rounded-xl text-base font-bold bg-primary hover:bg-primary-dark transition-all shadow-lg shadow-sky-100 min-w-[200px] flex-1 sm:flex-none"
-                onClick={() => {
-                  setTimeout(() => {
-                    router.push("/templates");
-                  }, 100);
-                }}
+                onClick={handleBuildResume}
               >
                 Build My Resume
               </Button>
@@ -88,7 +117,7 @@ export default function LandingPage() {
                 size="lg"
                 variant="outline"
                 className="h-14 px-10 rounded-xl text-base font-bold border border-primary text-primary hover:bg-primary/5 transition-all min-w-[200px] flex-1 sm:flex-none"
-                onClick={() => setIsImportModalOpen(true)}
+                onClick={handleImportResume}
               >
                 Import existing resume
               </Button>
@@ -400,11 +429,7 @@ export default function LandingPage() {
               <Button
                 size="lg"
                 className="h-14 px-12 rounded-2xl text-base font-bold bg-primary hover:bg-primary/90 shadow-xl shadow-primary/20 cursor-pointer"
-                onClick={() => {
-                  setTimeout(() => {
-                    router.push("/templates");
-                  }, 100);
-                }}
+                onClick={handleBuildResume}
               >
                 Create My Resume Now
               </Button>
